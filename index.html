@@ -137,15 +137,39 @@
       function formatDT(dt) {
         return dt ? new Date(dt).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
       }
-      // Helper to add flight info
-      function addFlightInfo(type, time, from, to, listElem) {
-  const key = `${type}-${time}-${from}-${to}`;
-  if ((type === 'Departure' && shownDepartures.has(key)) || (type === 'Return' && shownReturns.has(key))) return;
-  if (type === 'Departure') shownDepartures.add(key);
-  if (type === 'Return') shownReturns.add(key);
-  const li = document.createElement('li');
-  li.textContent = `${type}: ${time} | From: ${from} | To: ${to}`;
-  listElem.appendChild(li);
+      // Helper to add flight info (with more details)
+      function addFlightInfo(type, time, from, to, listElem, flight = {}) {
+        const key = `${type}-${time}-${from}-${to}`;
+        if ((type === 'Departure' && shownDepartures.has(key)) || (type === 'Return' && shownReturns.has(key))) return;
+        if (type === 'Departure') shownDepartures.add(key);
+        if (type === 'Return') shownReturns.add(key);
+        // Extract details, fallback to N/A if not available
+        const price = flight.price || flight.value || 'N/A';
+        const currency = flight.currency || 'N/A';
+        const airline = flight.airline || flight.airline_code || flight.airline_name || 'N/A';
+        const flightNumber = flight.flight_number || 'N/A';
+        const stops = typeof flight.transfers === 'number' ? flight.transfers : (flight.stops !== undefined ? flight.stops : 'N/A');
+        const duration = flight.duration || (flight.duration_to ? flight.duration_to : (flight.duration_return ? flight.duration_return : 'N/A'));
+        const bookingLink = flight.link || flight.booking_url || 'N/A';
+        const baggage = flight.baggage || 'N/A';
+        const seatClass = flight.class || flight.seat_class || 'N/A';
+        const aircraft = flight.aircraft || 'N/A';
+        // Compose HTML
+        const li = document.createElement('li');
+        li.innerHTML = `
+          <strong>${type}</strong>: ${time}<br>
+          <strong>From:</strong> ${from} <strong>To:</strong> ${to}<br>
+          <strong>Price:</strong> ${price} ${currency}<br>
+          <strong>Airline:</strong> ${airline}<br>
+          <strong>Flight #:</strong> ${flightNumber}<br>
+          <strong>Stops:</strong> ${stops}<br>
+          <strong>Duration:</strong> ${duration}<br>
+          <strong>Baggage:</strong> ${baggage}<br>
+          <strong>Seat Class:</strong> ${seatClass}<br>
+          <strong>Aircraft:</strong> ${aircraft}<br>
+          <strong>Booking:</strong> ${bookingLink !== 'N/A' ? `<a href='${bookingLink}' target='_blank'>Book</a>` : 'N/A'}
+        `;
+        listElem.appendChild(li);
       }
       // Helper to filter by max days difference
       function withinDays(dateStr, refStr, maxDays) {
@@ -168,7 +192,7 @@
                 // Show specific airport codes if available
                 const fromCode = flight.origin_airport || flight.origin || from;
                 const toCode = flight.destination_airport || flight.destination || to;
-                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem);
+                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem, flight);
                 found = true;
               });
             }
@@ -180,7 +204,7 @@
               bests.slice(0, 3).forEach(flight => {
                 const fromCode = flight.origin_airport || flight.origin || from;
                 const toCode = flight.destination_airport || flight.destination || to;
-                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem);
+                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem, flight);
                 found = true;
               });
             }
