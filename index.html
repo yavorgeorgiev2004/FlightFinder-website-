@@ -16,6 +16,14 @@
    </script>
 </head>
 <body>
+  <div id="user-greeting"></div>
+  <div id="login-form-container">
+    <form id="login-form">
+      <label for="username">Enter your name:</label>
+      <input type="text" id="username" name="username" required>
+      <button type="submit">Login</button>
+    </form>
+  </div>
   <h1>Flight Search Demo</h1>
   <form id="flight-form">
     <label for="origin">From:</label>
@@ -39,6 +47,14 @@
   <ul id="return-flights-list"></ul>
 
   <style>
+    #user-greeting {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    #login-form-container {
+      margin-bottom: 15px;
+    }
     .suggestions { position: relative; }
     .suggestions-list {
       position: absolute;
@@ -61,6 +77,38 @@
     }
   </style>
   <script>
+    // --- Login logic ---
+    function showGreeting(name) {
+      document.getElementById('user-greeting').textContent = `Welcome, ${name}!`;
+    }
+    function showLogin(show) {
+      document.getElementById('login-form-container').style.display = show ? '' : 'none';
+    }
+    function checkLogin() {
+      const name = localStorage.getItem('flight_username');
+      if (name) {
+        showGreeting(name);
+        showLogin(false);
+      } else {
+        showGreeting('');
+        showLogin(true);
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      checkLogin();
+      const loginForm = document.getElementById('login-form');
+      if (loginForm) {
+        loginForm.addEventListener('submit', function(e) {
+          e.preventDefault();
+          const name = document.getElementById('username').value.trim();
+          if (name) {
+            localStorage.setItem('flight_username', name);
+            showGreeting(name);
+            showLogin(false);
+          }
+        });
+      }
+    });
     const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
     // --- Autocomplete logic ---
     function setupAutocomplete(inputId, suggestionsId) {
