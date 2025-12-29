@@ -20,11 +20,11 @@
   <form id="flight-form">
     <label for="origin">From:</label>
     <input type="text" id="origin" name="origin" autocomplete="off" required placeholder="City or airport">
-    <div id="origin-suggestions" class="suggestions"></div>
+  <div id="origin-suggestions" class="suggestions"></div>
     <br>
     <label for="destination">To:</label>
     <input type="text" id="destination" name="destination" autocomplete="off" required placeholder="City or airport">
-    <div id="destination-suggestions" class="suggestions"></div>
+  <div id="destination-suggestions" class="suggestions"></div>
     <br>
     <label for="depart-date">Departure date:</label>
     <input type="date" id="depart-date" name="depart-date" required>
@@ -72,20 +72,31 @@
           if (currentList) currentList.remove();
           return;
         }
-        fetch(`https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(term)}&locale=en&types[]=city&types[]=airport`)
+        // Search for country, city, or airport
+        fetch(`https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(term)}&locale=en&types[]=country&types[]=city&types[]=airport`)
           .then(r => r.json())
           .then(data => {
             if (currentList) currentList.remove();
             const ul = document.createElement('ul');
             ul.className = 'suggestions-list';
             data.forEach(item => {
+              let label = item.name;
+              if (item.type === 'airport') {
+                label += ` (${item.code}) - ${item.city_name}, ${item.country_name}`;
+              } else if (item.type === 'city') {
+                label += ` (${item.code}) - ${item.country_name}`;
+              } else if (item.type === 'country') {
+                label += ` (${item.code})`;
+              }
               const li = document.createElement('li');
-              li.textContent = `${item.name} (${item.code})`;
+              li.textContent = label;
               li.dataset.code = item.code;
               li.dataset.name = item.name;
+              li.dataset.type = item.type;
               li.addEventListener('mousedown', function(e) {
-                input.value = `${item.name} (${item.code})`;
+                input.value = label;
                 input.dataset.code = item.code;
+                input.dataset.type = item.type;
                 ul.remove();
               });
               ul.appendChild(li);
@@ -109,79 +120,86 @@
       const destInput = document.getElementById('destination');
       const departDate = document.getElementById('depart-date').value;
       const returnDate = document.getElementById('return-date').value;
-      // Use only the IATA code (in parentheses)
-      const originMatch = originInput.value.match(/\((\w{3})\)$/);
-      const destMatch = destInput.value.match(/\((\w{3})\)$/);
-      if (!originMatch || !destMatch) {
-        alert('Please select valid cities/airports from the suggestions.');
+      // Use the selected code and type for more accurate search
+      const originCode = originInput.dataset.code;
+      const originType = originInput.dataset.type;
+      const destCode = destInput.dataset.code;
+      const destType = destInput.dataset.type;
+      if (!originCode || !destCode) {
+        alert('Please select valid countries, cities, or airports from the suggestions.');
         return;
       }
-      const origin = originMatch[1];
-      const destination = destMatch[1];
-      // Build API URL with optional return_date
-      let apiUrl = `https://flightfinder-website.onrender.com/api/flights?origin=${origin}&destination=${destination}&depart_date=${departDate}`;
-      if (returnDate) {
-        apiUrl += `&return_date=${returnDate}`;
+      // Helper sets to avoid repeated times
+      const shownDepartures = new Set();
+      const shownReturns = new Set();
+      // Helper to format date/time
+      function formatDT(dt) {
+        return dt ? new Date(dt).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
       }
-      fetch(apiUrl)
-        .then(r => r.json())
-        .then(data => {
-          const flightsList = document.getElementById('flights-list');
-          flightsList.innerHTML = '';
-          // Helper sets to avoid repeated times
-          const shownDepartures = new Set();
-          const shownReturns = new Set();
-          // Helper to format date/time
-          function formatDT(dt) {
-            return dt ? new Date(dt).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
-          }
-          // Helper to add flight info
-          function addFlightInfo(type, time, from, to) {
-            const key = `${type}-${time}-${from}-${to}`;
-            if ((type === 'Departure' && shownDepartures.has(key)) || (type === 'Return' && shownReturns.has(key))) return;
-            if (type === 'Departure') shownDepartures.add(key);
-            if (type === 'Return') shownReturns.add(key);
-            const li = document.createElement('li');
-            li.textContent = `${type}: ${time} | From: ${from} | To: ${to}`;
-            flightsList.appendChild(li);
-          }
-          let found = false;
-          // Main data
-          if (data.data && data.data.length > 0) {
-            data.data.forEach(flight => {
-              // Departure
-              if (flight.departure_at) {
-                addFlightInfo('Departure', formatDT(flight.departure_at), flight.origin || origin, flight.destination || destination);
+      // Helper to add flight info
+      function addFlightInfo(type, time, from, to, listElem) {
+  const key = `${type}-${time}-${from}-${to}`;
+  if ((type === 'Departure' && shownDepartures.has(key)) || (type === 'Return' && shownReturns.has(key))) return;
+  if (type === 'Departure') shownDepartures.add(key);
+  if (type === 'Return') shownReturns.add(key);
+  const li = document.createElement('li');
+  li.textContent = `${type}: ${time} | From: ${from} | To: ${to}`;
+  listElem.appendChild(li);
+      }
+      // Helper to filter by max days difference
+      function withinDays(dateStr, refStr, maxDays) {
+        const d1 = new Date(dateStr);
+        const d2 = new Date(refStr);
+        return Math.abs((d1 - d2) / (1000 * 60 * 60 * 24)) <= maxDays;
+      }
+      // Fetch and display flights (direction: 'outbound' or 'return')
+      function fetchAndDisplayFlights(from, to, date, typeLabel, listElem) {
+        let apiUrl = `https://flightfinder-website.onrender.com/api/flights?origin=${from}&destination=${to}&depart_date=${date}`;
+        fetch(apiUrl)
+          .then(r => r.json())
+          .then(data => {
+            let found = false;
+            let flights = [];
+            if (data.data && data.data.length > 0) {
+              flights = data.data.filter(flight => flight.departure_at && withinDays(flight.departure_at, date, 3));
+              flights.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(date)) - Math.abs(new Date(b.departure_at) - new Date(date)));
+              flights.forEach(flight => {
+                // Show specific airport codes if available
+                const fromCode = flight.origin_airport || flight.origin || from;
+                const toCode = flight.destination_airport || flight.destination || to;
+                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem);
                 found = true;
-              }
-              // Return
-              if (flight.return_at) {
-                addFlightInfo('Return', formatDT(flight.return_at), flight.destination || destination, flight.origin || origin);
+              });
+            }
+            // Fallback: best_prices (older API format)
+            if (!found && data.best_prices && data.best_prices.length > 0) {
+              listElem.innerHTML += '<li>No flights found for the selected date. Suggesting closest available flights:</li>';
+              let bests = data.best_prices.filter(flight => flight.departure_at && withinDays(flight.departure_at, date, 3));
+              bests.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(date)) - Math.abs(new Date(b.departure_at) - new Date(date)));
+              bests.slice(0, 3).forEach(flight => {
+                const fromCode = flight.origin_airport || flight.origin || from;
+                const toCode = flight.destination_airport || flight.destination || to;
+                addFlightInfo(typeLabel, formatDT(flight.departure_at), fromCode, toCode, listElem);
                 found = true;
-              }
-            });
-          }
-          // Fallback: best_prices (older API format)
-          if (!found && data.best_prices && data.best_prices.length > 0) {
-            flightsList.innerHTML = '<li>No flights found for the selected date. Suggesting closest available flights:</li>';
-            data.best_prices.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(departDate)) - Math.abs(new Date(b.departure_at) - new Date(departDate)));
-            data.best_prices.slice(0, 3).forEach(flight => {
-              if (flight.departure_at) {
-                addFlightInfo('Departure', formatDT(flight.departure_at), flight.origin || origin, flight.destination || destination);
-              }
-              if (flight.return_at) {
-                addFlightInfo('Return', formatDT(flight.return_at), flight.destination || destination, flight.origin || origin);
-              }
-            });
-            found = true;
-          }
-          if (!found) {
-            flightsList.innerHTML += '<li>No flights or alternative flights found.</li>';
-          }
-        })
-        .catch(() => {
-          document.getElementById('flights-list').innerHTML = '<li>Error fetching flights.</li>';
-        });
+              });
+            }
+            if (!found) {
+              listElem.innerHTML += `<li>No ${typeLabel.toLowerCase()} flights or alternative flights found.</li>`;
+            }
+          })
+          .catch(() => {
+            listElem.innerHTML = `<li>Error fetching ${typeLabel.toLowerCase()} flights.</li>`;
+          });
+      }
+      // Main logic
+      const flightsList = document.getElementById('flights-list');
+      flightsList.innerHTML = '';
+      // Outbound flights
+      fetchAndDisplayFlights(originCode, destCode, departDate, 'Departure', flightsList);
+      // Return flights (if return date is selected)
+      if (returnDate) {
+        fetchAndDisplayFlights(destCode, originCode, returnDate, 'Return', flightsList);
+      }
     });
   </script>
 </body>
