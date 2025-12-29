@@ -36,6 +36,7 @@
   </form>
   <h2>Available Flights</h2>
   <ul id="flights-list"></ul>
+  <ul id="return-flights-list"></ul>
 
   <style>
     .suggestions { position: relative; }
@@ -193,12 +194,17 @@
       }
       // Main logic
       const flightsList = document.getElementById('flights-list');
+      const returnFlightsList = document.getElementById('return-flights-list');
       flightsList.innerHTML = '';
+      returnFlightsList.innerHTML = '';
       // Outbound flights
       fetchAndDisplayFlights(originCode, destCode, departDate, 'Departure', flightsList);
       // Return flights (if return date is selected)
       if (returnDate) {
-        fetchAndDisplayFlights(destCode, originCode, returnDate, 'Return', flightsList);
+        // Add a heading for return flights
+        returnFlightsList.innerHTML = '<strong>Return Flights</strong>';
+        // For return, swap origin and destination, use return date as departure
+        fetchAndDisplayFlights(destCode, originCode, returnDate, 'Return', returnFlightsList);
       }
     });
   </script>
