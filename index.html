@@ -123,44 +123,56 @@
         .then(data => {
           const flightsList = document.getElementById('flights-list');
           flightsList.innerHTML = '';
-          if (!data.data || data.data.length === 0) {
-            flightsList.innerHTML = '<li>No flights found for the selected date. Suggesting closest available flights:</li>';
-            // Try to suggest closest flights from the API response (if any)
-            // The API may return flights for other dates in the data array
-            // Sort by how close the date is to the requested date
-            if (data.best_prices && data.best_prices.length > 0) {
-              // Use best_prices if available (older API format)
-              data.best_prices.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(departDate)) - Math.abs(new Date(b.departure_at) - new Date(departDate)));
-              data.best_prices.slice(0, 3).forEach(flight => {
-                let dep = flight.departure_at ? new Date(flight.departure_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
-                let arr = flight.return_at ? new Date(flight.return_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
-                const li = document.createElement('li');
-                li.textContent = `Departure: ${dep} | Arrival: ${arr}`;
-                flightsList.appendChild(li);
-              });
-            } else if (data.data && data.data.length > 0) {
-              // Sort by closest date
-              data.data.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(departDate)) - Math.abs(new Date(b.departure_at) - new Date(departDate)));
-              data.data.slice(0, 3).forEach(flight => {
-                let dep = flight.departure_at ? new Date(flight.departure_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
-                let arr = flight.return_at ? new Date(flight.return_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
-                const li = document.createElement('li');
-                li.textContent = `Departure: ${dep} | Arrival: ${arr}`;
-                flightsList.appendChild(li);
-              });
-            } else {
-              flightsList.innerHTML += '<li>No alternative flights found.</li>';
-            }
-            return;
+          // Helper sets to avoid repeated times
+          const shownDepartures = new Set();
+          const shownReturns = new Set();
+          // Helper to format date/time
+          function formatDT(dt) {
+            return dt ? new Date(dt).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit' }) : 'N/A';
           }
-          data.data.forEach(flight => {
-            // Only show departure and arrival time if available
-            let dep = flight.departure_at ? new Date(flight.departure_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) : 'N/A';
-            let arr = flight.return_at ? new Date(flight.return_at).toLocaleString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false }) : 'N/A';
+          // Helper to add flight info
+          function addFlightInfo(type, time, from, to) {
+            const key = `${type}-${time}-${from}-${to}`;
+            if ((type === 'Departure' && shownDepartures.has(key)) || (type === 'Return' && shownReturns.has(key))) return;
+            if (type === 'Departure') shownDepartures.add(key);
+            if (type === 'Return') shownReturns.add(key);
             const li = document.createElement('li');
-            li.textContent = `Departure: ${dep} | Arrival: ${arr}`;
+            li.textContent = `${type}: ${time} | From: ${from} | To: ${to}`;
             flightsList.appendChild(li);
-          });
+          }
+          let found = false;
+          // Main data
+          if (data.data && data.data.length > 0) {
+            data.data.forEach(flight => {
+              // Departure
+              if (flight.departure_at) {
+                addFlightInfo('Departure', formatDT(flight.departure_at), flight.origin || origin, flight.destination || destination);
+                found = true;
+              }
+              // Return
+              if (flight.return_at) {
+                addFlightInfo('Return', formatDT(flight.return_at), flight.destination || destination, flight.origin || origin);
+                found = true;
+              }
+            });
+          }
+          // Fallback: best_prices (older API format)
+          if (!found && data.best_prices && data.best_prices.length > 0) {
+            flightsList.innerHTML = '<li>No flights found for the selected date. Suggesting closest available flights:</li>';
+            data.best_prices.sort((a, b) => Math.abs(new Date(a.departure_at) - new Date(departDate)) - Math.abs(new Date(b.departure_at) - new Date(departDate)));
+            data.best_prices.slice(0, 3).forEach(flight => {
+              if (flight.departure_at) {
+                addFlightInfo('Departure', formatDT(flight.departure_at), flight.origin || origin, flight.destination || destination);
+              }
+              if (flight.return_at) {
+                addFlightInfo('Return', formatDT(flight.return_at), flight.destination || destination, flight.origin || origin);
+              }
+            });
+            found = true;
+          }
+          if (!found) {
+            flightsList.innerHTML += '<li>No flights or alternative flights found.</li>';
+          }
         })
         .catch(() => {
           document.getElementById('flights-list').innerHTML = '<li>Error fetching flights.</li>';
