@@ -108,6 +108,7 @@
       const originInput = document.getElementById('origin');
       const destInput = document.getElementById('destination');
       const departDate = document.getElementById('depart-date').value;
+      const returnDate = document.getElementById('return-date').value;
       // Use only the IATA code (in parentheses)
       const originMatch = originInput.value.match(/\((\w{3})\)$/);
       const destMatch = destInput.value.match(/\((\w{3})\)$/);
@@ -117,8 +118,12 @@
       }
       const origin = originMatch[1];
       const destination = destMatch[1];
-      // Fetch flights for the selected date
-  fetch(`https://flightfinder-website.onrender.com/api/flights?origin=${origin}&destination=${destination}&depart_date=${departDate}`)
+      // Build API URL with optional return_date
+      let apiUrl = `https://flightfinder-website.onrender.com/api/flights?origin=${origin}&destination=${destination}&depart_date=${departDate}`;
+      if (returnDate) {
+        apiUrl += `&return_date=${returnDate}`;
+      }
+      fetch(apiUrl)
         .then(r => r.json())
         .then(data => {
           const flightsList = document.getElementById('flights-list');
