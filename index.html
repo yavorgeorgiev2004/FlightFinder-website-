@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="FlightFinder -Search and compare flight prices from multiple airlines. Find the best deals on flights worldwide.">
+  <meta name="description" content="FlightFinder - Search and compare flight prices from multiple airlines. Find the best deals on flights worldwide.">
   <title>FlightFinder – Find Your Perfect Flight</title>
   <link rel="stylesheet" href="flightfinder-theme.css">
   
@@ -411,7 +411,7 @@
             <div class="flight-price"><strong>Price:</strong> ${flight.value} ${flight.currency}</div>
             <div class="flight-airline"><strong>Airline:</strong> ${flight.airline || 'N/A'}</div>
             <div class="flight-number"><strong>Flight #:</strong> ${flight.flight_number || 'N/A'}</div>
-            ${flight.link ? `<div class="flight-booking"><a href='${flight.link}' target='_blank' class="book-button">Book Now</a></div>` : ''}
+            <div class="flight-booking"><a href="404.html" class="book-button">Book Now</a></div>
           </div>
         `;
         listElem.appendChild(li);
