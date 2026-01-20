@@ -204,23 +204,36 @@
       function fetchFlights(from, to, date, typeLabel, listElem) {
   const url = `https://flightfinder-website.onrender.com/api/travelpayouts/flights?origin=${from}&destination=${to}&departure_at=${date}`;
   fetch(url)
-          .then(r => r.json())
-          .then(data => {
-            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-              // Sort by proximity to selected date
-              const sorted = data.data.slice().sort((a, b) => {
-                const dA = Math.abs(new Date(a.departure_at) - new Date(date));
-                const dB = Math.abs(new Date(b.departure_at) - new Date(date));
-                return dA - dB;
-              });
-              sorted.slice(0, 5).forEach(flight => addFlightInfo(typeLabel, flight, listElem));
-            } else {
-              listElem.innerHTML = `<li>No ${typeLabel.toLowerCase()} flights found.</li>`;
-            }
-          })
-          .catch(() => {
-            listElem.innerHTML = `<li>Error fetching ${typeLabel.toLowerCase()} flights.</li>`;
-          });
+    .then(async r => {
+      if (!r.ok) {
+        const text = await r.text();
+        throw new Error(`HTTP ${r.status}: ${text}`);
+      }
+      return r.json();
+    })
+    .then(data => {
+      if (data.error) {
+        listElem.innerHTML = `<li>API Error: ${data.error}</li>`;
+        console.error('API Error:', data);
+        return;
+      }
+      if (data.data && Array.isArray(data.data) && data.data.length > 0) {
+        // Sort by proximity to selected date
+        const sorted = data.data.slice().sort((a, b) => {
+          const dA = Math.abs(new Date(a.departure_at) - new Date(date));
+          const dB = Math.abs(new Date(b.departure_at) - new Date(date));
+          return dA - dB;
+        });
+        sorted.slice(0, 5).forEach(flight => addFlightInfo(typeLabel, flight, listElem));
+      } else {
+        listElem.innerHTML = `<li>No ${typeLabel.toLowerCase()} flights found.</li>`;
+        console.warn('No flights found:', data);
+      }
+    })
+    .catch(err => {
+      listElem.innerHTML = `<li>Error fetching ${typeLabel.toLowerCase()} flights.<br><span style='color:red;'>${err.message}</span></li>`;
+      console.error('Fetch error:', err);
+    });
       }
 
       // Outbound flights
