@@ -98,6 +98,11 @@
                     required
                     aria-autocomplete="list"
                   >
+                  <button type="button" class="clear-button" aria-label="Clear origin" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
                   <div id="origin-suggestions" class="suggestions"></div>
                 </div>
               </div>
@@ -123,6 +128,11 @@
                     required
                     aria-autocomplete="list"
                   >
+                  <button type="button" class="clear-button" aria-label="Clear destination" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
                   <div id="destination-suggestions" class="suggestions"></div>
                 </div>
               </div>
@@ -136,13 +146,20 @@
                   </svg>
                   Departure
                 </label>
-                <input 
-                  type="date" 
-                  id="depart-date" 
-                  name="depart-date" 
-                  class="form-input" 
-                  required
-                >
+                <div class="date-input-wrapper">
+                  <input 
+                    type="date" 
+                    id="depart-date" 
+                    name="depart-date" 
+                    class="form-input" 
+                    required
+                  >
+                  <button type="button" class="clear-button" aria-label="Clear departure date" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
 
               <!-- Return Date -->
@@ -154,12 +171,19 @@
                   </svg>
                   Return
                 </label>
-                <input 
-                  type="date" 
-                  id="return-date" 
-                  name="return-date" 
-                  class="form-input"
-                >
+                <div class="date-input-wrapper">
+                  <input 
+                    type="date" 
+                    id="return-date" 
+                    name="return-date" 
+                    class="form-input"
+                  >
+                  <button type="button" class="clear-button" aria-label="Clear return date" style="display: none;">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -171,6 +195,9 @@
               </svg>
               <span>Search Flights</span>
             </button>
+
+            <!-- Warning Messages Container -->
+            <div id="warning-messages" class="warning-messages" style="display: none;"></div>
           </form>
 
           <!-- Flight Results Lists -->
@@ -179,6 +206,13 @@
         </div>
       </div>
     </section>
+
+    <!-- Loading Indicator -->
+    <div id="loading-indicator" class="loading-container" role="status" aria-live="polite" aria-hidden="true">
+      <div class="loading-spinner" aria-label="Loading flights"></div>
+      <p class="loading-text">Searching for the best flights...</p>
+      <p class="loading-subtext">This may take a few moments</p>
+    </div>
 
     <!-- How It Works Section -->
     <section id="how-it-works" class="info-section" aria-labelledby="how-it-works-heading">
@@ -311,7 +345,62 @@
           }
         });
       });
+
+      // Setup clear buttons for all inputs
+      setupClearButtons();
     });
+
+    // ========== Clear Button Functionality ==========
+    function setupClearButtons() {
+      // Text inputs (origin, destination)
+      const textInputs = ['origin', 'destination'];
+      textInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        const clearBtn = input.nextElementSibling;
+        
+        // Show/hide clear button based on input value
+        input.addEventListener('input', function() {
+          if (this.value.trim()) {
+            clearBtn.style.display = 'flex';
+          } else {
+            clearBtn.style.display = 'none';
+          }
+        });
+        
+        // Clear button click
+        clearBtn.addEventListener('click', function() {
+          input.value = '';
+          delete input.dataset.code;
+          delete input.dataset.type;
+          clearBtn.style.display = 'none';
+          input.focus();
+        });
+      });
+
+      // Date inputs
+      const dateInputs = ['depart-date', 'return-date'];
+      dateInputs.forEach(inputId => {
+        const input = document.getElementById(inputId);
+        const wrapper = input.parentElement;
+        const clearBtn = wrapper.querySelector('.clear-button');
+        
+        // Show/hide clear button based on input value
+        input.addEventListener('input', function() {
+          if (this.value) {
+            clearBtn.style.display = 'flex';
+          } else {
+            clearBtn.style.display = 'none';
+          }
+        });
+        
+        // Clear button click
+        clearBtn.addEventListener('click', function() {
+          input.value = '';
+          clearBtn.style.display = 'none';
+          input.focus();
+        });
+      });
+    }
     
     // ========== Autocomplete Logic ==========
     function setupAutocomplete(inputId, suggestionsId) {
@@ -326,10 +415,28 @@
           return;
         }
         
+        // Show loading message
+        if (currentList) currentList.remove();
+        const loadingList = document.createElement('ul');
+        loadingList.className = 'suggestions-list';
+        loadingList.innerHTML = '<li class="autocomplete-loading">Searching...</li>';
+        suggestionsDiv.appendChild(loadingList);
+        currentList = loadingList;
+        
         fetch(`https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(term)}&locale=en&types[]=country&types[]=city&types[]=airport`)
           .then(r => r.json())
           .then(data => {
             if (currentList) currentList.remove();
+            
+            if (!data || data.length === 0) {
+              const noResultsList = document.createElement('ul');
+              noResultsList.className = 'suggestions-list';
+              noResultsList.innerHTML = '<li class="autocomplete-loading">No results found</li>';
+              suggestionsDiv.appendChild(noResultsList);
+              currentList = noResultsList;
+              return;
+            }
+            
             const ul = document.createElement('ul');
             ul.className = 'suggestions-list';
             
@@ -361,6 +468,15 @@
             
             if (data.length > 0) suggestionsDiv.appendChild(ul);
             currentList = ul;
+          })
+          .catch(error => {
+            console.error('Autocomplete error:', error);
+            if (currentList) currentList.remove();
+            const errorList = document.createElement('ul');
+            errorList.className = 'suggestions-list';
+            errorList.innerHTML = '<li class="autocomplete-loading">Error loading results</li>';
+            suggestionsDiv.appendChild(errorList);
+            currentList = errorList;
           });
       });
       
@@ -380,19 +496,87 @@
       const destInput = document.getElementById('destination');
       const departDate = document.getElementById('depart-date').value;
       const returnDate = document.getElementById('return-date').value;
+      const warningContainer = document.getElementById('warning-messages');
       
       const originCode = originInput.dataset.code;
       const destCode = destInput.dataset.code;
       
+      // Clear previous warnings
+      warningContainer.innerHTML = '';
+      warningContainer.style.display = 'none';
+      
+      // Validation
       if (!originCode || !destCode) {
         alert('Please select valid airports or cities from the suggestions.');
         return;
       }
       
+      // Date validation and warnings
+      const warnings = [];
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (departDate) {
+        const departDateObj = new Date(departDate);
+        if (departDateObj < today) {
+          warnings.push({
+            type: 'warning',
+            icon: '⚠️',
+            message: 'Departure date is in the past. Flights shown may no longer be available.'
+          });
+        }
+      }
+      
+      if (returnDate) {
+        const returnDateObj = new Date(returnDate);
+        if (returnDateObj < today) {
+          warnings.push({
+            type: 'warning',
+            icon: '⚠️',
+            message: 'Return date is in the past. Flights shown may no longer be available.'
+          });
+        }
+        
+        if (departDate) {
+          const departDateObj = new Date(departDate);
+          if (returnDateObj < departDateObj) {
+            warnings.push({
+              type: 'error',
+              icon: '❌',
+              message: 'Return date cannot be before departure date. Please adjust your dates.'
+            });
+            return; // Stop execution for this error
+          }
+        }
+      }
+      
+      // Display warnings
+      if (warnings.length > 0) {
+        warningContainer.innerHTML = warnings.map(w => `
+          <div class="warning-message ${w.type}">
+            <span class="warning-icon">${w.icon}</span>
+            <span class="warning-text">${w.message}</span>
+          </div>
+        `).join('');
+        warningContainer.style.display = 'block';
+      }
+      
       const flightsList = document.getElementById('flights-list');
       const returnFlightsList = document.getElementById('return-flights-list');
+      const loadingIndicator = document.getElementById('loading-indicator');
+      
       flightsList.innerHTML = '';
       returnFlightsList.innerHTML = '';
+      
+      // Show loading indicator
+      loadingIndicator.setAttribute('aria-hidden', 'false');
+      loadingIndicator.style.display = 'flex';
+      
+      // Hide loading indicator function
+      function hideLoading() {
+        loadingIndicator.setAttribute('aria-hidden', 'true');
+        loadingIndicator.style.display = 'none';
+      }
       
       // Helper to format date
       function formatDate(dt) {
@@ -418,7 +602,7 @@
       }
       
       // Fetch and display flights
-      function fetchFlights(from, to, date, typeLabel, listElem) {
+      function fetchFlights(from, to, date, typeLabel, listElem, isLastRequest) {
         const url = `https://flightfinder-website.onrender.com/api/travelpayouts/flights?origin=${from}&destination=${to}&departure_at=${date}`;
         
         fetch(url)
@@ -433,6 +617,7 @@
             if (data.error) {
               listElem.innerHTML = `<li class="error-message">API Error: ${data.error}</li>`;
               console.error('API Error:', data);
+              if (isLastRequest) hideLoading();
               return;
             }
             
@@ -448,28 +633,34 @@
               listElem.innerHTML = `<li class="no-results">No ${typeLabel.toLowerCase()} flights found.</li>`;
               console.warn('No flights found:', data);
             }
+            
+            // Hide loading when last request completes
+            if (isLastRequest) {
+              hideLoading();
+              // Scroll to results
+              setTimeout(() => {
+                flightsList.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }, 100);
+            }
           })
           .catch(err => {
             listElem.innerHTML = `<li class="error-message">Error fetching ${typeLabel.toLowerCase()} flights.<br><span style='color:#dc3545;'>${err.message}</span></li>`;
             console.error('Fetch error:', err);
+            if (isLastRequest) hideLoading();
           });
       }
       
       // Fetch outbound flights
-      fetchFlights(originCode, destCode, departDate, 'Departure', flightsList);
+      const hasReturnDate = !!returnDate;
+      fetchFlights(originCode, destCode, departDate, 'Departure', flightsList, !hasReturnDate);
       
       // Fetch return flights if date provided
       returnFlightsList.innerHTML = '<li class="section-header"><strong>Return Flights</strong></li>';
-      if (returnDate) {
-        fetchFlights(destCode, originCode, returnDate, 'Return', returnFlightsList);
+      if (hasReturnDate) {
+        fetchFlights(destCode, originCode, returnDate, 'Return', returnFlightsList, true);
       } else {
         returnFlightsList.innerHTML += '<li class="info-message">No return date selected.</li>';
       }
-      
-      // Scroll to results
-      setTimeout(() => {
-        flightsList.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 500);
     });
   </script>
 </body>
