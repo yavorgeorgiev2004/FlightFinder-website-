@@ -1,115 +1,225 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- HTML5 document type declaration -->
+<html lang="en"> <!-- Root element with English language attribute -->
 <head>
-  <meta charset="UTF-8">
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- HEAD SECTION: Page metadata and external resource links                 -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  
+  <meta charset="UTF-8"> <!-- Character encoding - supports all languages/symbols -->
+  
+  <!-- Responsive viewport meta tag - makes page mobile-friendly -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- width=device-width: Page width matches device screen width -->
+  <!-- initial-scale=1.0: No zoom on page load -->
+  
+  <!-- SEO meta description - shown in Google search results -->
   <meta name="description" content="FlightFinder - Search and compare flight prices from multiple airlines. Find the best deals on flights worldwide.">
+  
+  <!-- Page title - appears in browser tab -->
   <title>FlightFinder – Find Your Perfect Flight</title>
+  
+  <!-- External CSS stylesheet - contains all visual styling -->
   <link rel="stylesheet" href="flightfinder-theme.css">
   
-  <!-- Favicon -->
+  <!-- Favicon - small icon in browser tab (plane emoji as SVG) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 
-   <!-- Website ownership verification script -->
-   <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
-     (function () {
-         var script = document.createElement("script");
-         script.async = 1;
-         script.src = 'https://tp-em.com/NDg0Njc4.js?t=484678';
-         document.head.appendChild(script);
-     })();
-   </script>
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- TRAVELPAYOUTS VERIFICATION SCRIPT                                       -->
+  <!-- Required for API access - verifies website ownership                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
+    // IIFE (Immediately Invoked Function Expression) - runs immediately
+    (function () {
+      var script = document.createElement("script"); // Create new script element
+      script.async = 1; // Load asynchronously (non-blocking)
+      script.src = 'https://tp-em.com/NDg0Njc4.js?t=484678'; // Travelpayouts verification URL
+      document.head.appendChild(script); // Add script to page head
+    })(); // () executes function immediately
+  </script>
 </head>
 <body>
 
-  <!-- Skip to main content for accessibility -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- SKIP LINK: Accessibility feature for keyboard navigation                -->
+  <!-- Hidden by default, appears when focused with Tab key                    -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
+  <!-- href="#main-content": Jumps to element with id="main-content" -->
 
-  <!-- Header with Navigation -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- HEADER: Top navigation bar (sticky - stays at top when scrolling)       -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <header class="header" role="banner">
+    <!-- role="banner": ARIA landmark - tells screen readers this is main header -->
+    
     <nav class="nav-container" role="navigation" aria-label="Main navigation">
+      <!-- role="navigation": ARIA landmark - marks navigation section -->
+      <!-- aria-label: Describes navigation for screen readers -->
+      
+      <!-- LOGO: Plane icon + brand name -->
       <div class="logo">
+        <!-- SVG plane icon - scalable vector graphic (stays sharp at any size) -->
         <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <!-- aria-hidden="true": Decorative image, hidden from screen readers -->
+          <!-- viewBox: SVG coordinate system (0-24 on x and y axis) -->
           <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" fill="currentColor"/>
+          <!-- path: Defines shape using SVG coordinates -->
+          <!-- fill="currentColor": Uses current text color from CSS -->
         </svg>
-        <span class="logo-text">FlightFinder</span>
+        <span class="logo-text">FlightFinder</span> <!-- Brand name -->
       </div>
+      
+      <!-- NAVIGATION MENU: Links to page sections -->
       <ul class="nav-menu">
         <li><a href="#search-section" class="nav-link active">Search</a></li>
+        <!-- href="#search-section": Anchor link - jumps to search section -->
+        <!-- class="active": Highlights current section -->
+        
         <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <!-- Jumps to "How It Works" section -->
+        
         <li><a href="#about" class="nav-link">About</a></li>
+        <!-- Jumps to "About" section -->
       </ul>
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- MAIN CONTENT: All primary page content                                  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <main id="main-content" role="main">
+    <!-- id="main-content": Target for skip link -->
+    <!-- role="main": ARIA landmark - marks main content area -->
     
-    <!-- Hero Section -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- HERO SECTION: Large banner with main headline                           -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section class="hero" aria-labelledby="hero-heading">
+      <!-- aria-labelledby: Associates section with its heading -->
+      
       <div class="hero-content">
         <h1 id="hero-heading" class="hero-title">Find Your Perfect Flight</h1>
+        <!-- h1: Main page heading (only one per page for SEO) -->
+        
         <p class="hero-subtitle">Search millions of flights and discover the best deals worldwide</p>
+        <!-- Tagline/description text -->
       </div>
+      
       <div class="hero-background" aria-hidden="true"></div>
+      <!-- Decorative background element -->
+      <!-- aria-hidden="true": Not meaningful content, hidden from screen readers -->
     </section>
 
-    <!-- Search Section -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- SEARCH SECTION: Main flight search form                                 -->
+    <!-- This is the core functionality of the application                       -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="search-section" class="search-section" aria-labelledby="search-heading">
-      <div class="container">
+      <!-- id="search-section": Target for navigation links and 404 redirect -->
+      
+      <div class="container"> <!-- Container for max-width and centering -->
         <h2 id="search-heading" class="section-title visually-hidden">Flight Search</h2>
+        <!-- class="visually-hidden": Hidden visually but read by screen readers -->
         
-        <div class="search-card">
-          <!-- User Greeting (shown after login) -->
-          <div id="user-greeting" style="display:none;"></div>
+        <div class="search-card"> <!-- White card containing all search elements -->
           
-          <!-- Login Form (shown before login) -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
+          <!-- USER GREETING: Shows after login                                  -->
+          <!-- Hidden by default, JavaScript shows it after user logs in         -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
+          <div id="user-greeting" style="display:none;"></div>
+          <!-- JavaScript will insert: "Welcome back, [Name]!" here -->
+          
+          <!-- ═════════════════════════════════════════════════════════════════ -->
+          <!-- LOGIN FORM: Collects user's name for personalization              -->
+          <!-- Shown before login, hidden after login                            -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
           <div id="login-form-container">
             <form id="login-form">
+              <!-- Form submission handled by JavaScript (in flightfinder.js) -->
+              
               <label for="username">Enter your name:</label>
+              <!-- for="username": Associates label with input -->
+              
               <input type="text" id="username" name="username" required>
+              <!-- type="text": Single-line text input -->
+              <!-- id="username": Unique identifier for JavaScript -->
+              <!-- required: Browser won't submit if empty -->
+              
               <button type="submit">Login</button>
+              <!-- type="submit": Triggers form submission -->
+              <!-- JavaScript intercepts to save name to localStorage -->
             </form>
           </div>
 
-          <!-- Flight Search Form -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
+          <!-- FLIGHT SEARCH FORM: Main search functionality                     -->
+          <!-- Contains 4 inputs: From, To, Departure Date, Return Date          -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
           <form id="flight-form" class="search-form" role="search" aria-label="Flight search form">
+            <!-- role="search": ARIA landmark - marks search functionality -->
+            <!-- Form submission handled by JavaScript (in flightfinder.js) -->
             
-            <!-- Search Inputs Grid -->
+            <!-- SEARCH GRID: 4 input fields in responsive grid layout -->
             <div class="search-grid">
+              <!-- CSS Grid: 4 columns on desktop, stacks on mobile -->
               
-              <!-- Origin Input with Autocomplete -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
+              <!-- FROM INPUT: Departure airport with autocomplete                -->
+              <!-- JavaScript provides dropdown suggestions as user types         -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
               <div class="form-group">
                 <label for="origin" class="form-label">
+                  <!-- SVG icon: Circle with dot (represents origin point) -->
                   <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+                    <!-- Outer circle -->
                     <circle cx="12" cy="12" r="3" fill="currentColor"/>
+                    <!-- Inner filled dot -->
                   </svg>
                   From
                 </label>
+                
                 <div class="autocomplete-wrapper">
+                  <!-- Wrapper for positioning dropdown and clear button -->
+                  
                   <input 
                     type="text" 
                     id="origin" 
                     name="origin" 
                     class="form-input" 
-                    placeholder="City or Airport"
-                    autocomplete="off"
-                    required
-                    aria-autocomplete="list"
+                    placeholder="City or Airport" <!-- Hint text when empty -->
+                    autocomplete="off" <!-- Disable browser's default autocomplete -->
+                    required <!-- Field must be filled -->
+                    aria-autocomplete="list" <!-- Tells screen readers autocomplete is available -->
                   >
+                  <!-- JavaScript stores selected airport code in: input.dataset.code -->
+                  
+                  <!-- CLEAR BUTTON: X button to clear input (hidden by default) -->
                   <button type="button" class="clear-button" aria-label="Clear origin" style="display: none;">
+                    <!-- type="button": Prevents form submission -->
+                    <!-- JavaScript shows/hides based on input value -->
+                    
                     <svg viewBox="0 0 24 24" fill="none">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                      <!-- Two diagonal lines forming X -->
                     </svg>
                   </button>
+                  
+                  <!-- AUTOCOMPLETE DROPDOWN: Populated by JavaScript -->
                   <div id="origin-suggestions" class="suggestions"></div>
+                  <!-- JavaScript inserts <ul> with <li> suggestions here -->
                 </div>
               </div>
 
-              <!-- Destination Input with Autocomplete -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
+              <!-- TO INPUT: Destination airport with autocomplete               -->
+              <!-- Same structure as FROM input above                            -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
               <div class="form-group">
                 <label for="destination" class="form-label">
+                  <!-- SVG icon: Stacked layers (represents destination) -->
                   <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
                     <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
@@ -117,6 +227,7 @@
                   </svg>
                   To
                 </label>
+                
                 <div class="autocomplete-wrapper">
                   <input 
                     type="text" 
@@ -128,32 +239,45 @@
                     required
                     aria-autocomplete="list"
                   >
+                  
                   <button type="button" class="clear-button" aria-label="Clear destination" style="display: none;">
                     <svg viewBox="0 0 24 24" fill="none">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                     </svg>
                   </button>
+                  
                   <div id="destination-suggestions" class="suggestions"></div>
                 </div>
               </div>
 
-              <!-- Departure Date -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
+              <!-- DEPARTURE DATE: HTML5 date picker                             -->
+              <!-- Shows native date picker UI (different on each browser/OS)    -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
               <div class="form-group">
                 <label for="depart-date" class="form-label">
+                  <!-- SVG icon: Calendar -->
                   <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+                    <!-- Calendar box -->
                     <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <!-- Header line and binding rings -->
                   </svg>
                   Departure
                 </label>
+                
                 <div class="date-input-wrapper">
+                  <!-- Wrapper for positioning clear button -->
+                  
                   <input 
-                    type="date" 
+                    type="date" <!-- HTML5 date input - shows native date picker -->
                     id="depart-date" 
                     name="depart-date" 
                     class="form-input" 
-                    required
+                    required <!-- Mandatory field -->
                   >
+                  <!-- Value format: YYYY-MM-DD (e.g., "2025-02-15") -->
+                  
                   <button type="button" class="clear-button" aria-label="Clear departure date" style="display: none;">
                     <svg viewBox="0 0 24 24" fill="none">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -162,22 +286,29 @@
                 </div>
               </div>
 
-              <!-- Return Date -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
+              <!-- RETURN DATE: Optional date picker for round-trip flights      -->
+              <!-- NOT required - user can leave empty for one-way flights       -->
+              <!-- ═════════════════════════════════════════════════════════════ -->
               <div class="form-group">
                 <label for="return-date" class="form-label">
+                  <!-- Same calendar icon as departure -->
                   <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                     <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
                     <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                   </svg>
                   Return
                 </label>
+                
                 <div class="date-input-wrapper">
                   <input 
                     type="date" 
                     id="return-date" 
                     name="return-date" 
                     class="form-input"
+                    <!-- Note: NO "required" attribute - optional field -->
                   >
+                  
                   <button type="button" class="clear-button" aria-label="Clear return date" style="display: none;">
                     <svg viewBox="0 0 24 24" fill="none">
                       <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -187,40 +318,81 @@
               </div>
             </div>
 
-            <!-- Search Button -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- SEARCH BUTTON: Large orange button to submit form                -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
             <button type="submit" class="search-button" aria-label="Search for flights">
+              <!-- type="submit": Triggers form submission -->
+              <!-- JavaScript intercepts to prevent page reload -->
+              
+              <!-- Magnifying glass icon (universal search symbol) -->
               <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
                 <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+                <!-- Circle part of magnifying glass -->
                 <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                <!-- Handle of magnifying glass -->
               </svg>
               <span>Search Flights</span>
             </button>
 
-            <!-- Warning Messages Container -->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
+            <!-- WARNING MESSAGES: Shows date validation warnings                 -->
+            <!-- Hidden by default, JavaScript populates when dates are invalid   -->
+            <!-- Examples: "Departure date is in the past", "Return before depart"-->
+            <!-- ═══════════════════════════════════════════════════════════════ -->
             <div id="warning-messages" class="warning-messages" style="display: none;"></div>
+            <!-- JavaScript inserts warning HTML here when needed -->
           </form>
 
-          <!-- Flight Results Lists -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
+          <!-- FLIGHT RESULTS: Lists populated by JavaScript                     -->
+          <!-- Initially empty, filled after successful search                    -->
+          <!-- ═════════════════════════════════════════════════════════════════ -->
           <ul id="flights-list"></ul>
+          <!-- Departure flights displayed here -->
+          <!-- JavaScript creates <li> elements with flight cards -->
+          
           <ul id="return-flights-list"></ul>
+          <!-- Return flights displayed here (if round trip) -->
         </div>
       </div>
     </section>
 
-    <!-- Loading Indicator -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- LOADING INDICATOR: Animated spinner shown during search                 -->
+    <!-- Hidden by default, JavaScript shows/hides during API calls             -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loading-indicator" class="loading-container" role="status" aria-live="polite" aria-hidden="true">
+      <!-- role="status": ARIA role - indicates status information -->
+      <!-- aria-live="polite": Screen reader announces changes when user is idle -->
+      <!-- aria-hidden="true": Initially hidden from screen readers -->
+      
       <div class="loading-spinner" aria-label="Loading flights"></div>
+      <!-- Animated spinning circle (CSS animation) -->
+      
       <p class="loading-text">Searching for the best flights...</p>
+      <!-- Main loading message -->
+      
       <p class="loading-subtext">This may take a few moments</p>
+      <!-- Additional context -->
     </div>
+    <!-- JavaScript controls visibility by changing aria-hidden and display style -->
 
-    <!-- How It Works Section -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- HOW IT WORKS SECTION: Three feature cards                               -->
+    <!-- Explains the search process to users                                    -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="how-it-works" class="info-section" aria-labelledby="how-it-works-heading">
       <div class="container">
         <h2 id="how-it-works-heading" class="section-title">How It Works</h2>
+        
         <div class="features-grid">
+          <!-- CSS Grid: 3 columns on desktop, stacks on mobile -->
+          
+          <!-- FEATURE CARD 1: Search -->
           <article class="feature-card">
             <div class="feature-icon" aria-hidden="true">
+              <!-- Magnifying glass icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
                 <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -230,8 +402,10 @@
             <p class="feature-description">Enter your departure and destination cities with your travel dates. Our autocomplete feature helps you find airports quickly.</p>
           </article>
           
+          <!-- FEATURE CARD 2: Compare -->
           <article class="feature-card">
             <div class="feature-icon" aria-hidden="true">
+              <!-- Arrow icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -240,8 +414,10 @@
             <p class="feature-description">We search through multiple airlines and travel providers to find you the best available prices and flight options.</p>
           </article>
           
+          <!-- FEATURE CARD 3: Book -->
           <article class="feature-card">
             <div class="feature-icon" aria-hidden="true">
+              <!-- Plane icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" fill="currentColor"/>
               </svg>
@@ -253,7 +429,9 @@
       </div>
     </section>
 
-    <!-- About Section -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
+    <!-- ABOUT SECTION: Information about FlightFinder                           -->
+    <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="about" class="info-section about-section" aria-labelledby="about-heading">
       <div class="container">
         <h2 id="about-heading" class="section-title">About FlightFinder</h2>
@@ -265,14 +443,23 @@
     </section>
   </main>
 
-  <!-- Footer -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER: Bottom section with links and copyright                         -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <footer class="footer" role="contentinfo">
+    <!-- role="contentinfo": ARIA landmark - marks footer -->
+    
     <div class="container">
       <div class="footer-content">
+        <!-- 3-column grid layout -->
+        
+        <!-- COLUMN 1: Brand -->
         <div class="footer-section">
           <h3 class="footer-title">FlightFinder</h3>
           <p class="footer-text">Your trusted flight search companion</p>
         </div>
+        
+        <!-- COLUMN 2: Navigation Links -->
         <div class="footer-section">
           <h4 class="footer-subtitle">Links</h4>
           <ul class="footer-links">
@@ -281,6 +468,8 @@
             <li><a href="#about">About</a></li>
           </ul>
         </div>
+        
+        <!-- COLUMN 3: Copyright & Attribution -->
         <div class="footer-section">
           <h4 class="footer-subtitle">Connect</h4>
           <p class="footer-text">© 2025 FlightFinder. All rights reserved.</p>
@@ -290,378 +479,23 @@
     </div>
   </footer>
 
-  <!-- JavaScript -->
-  <script>
-    const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
-    
-    // ========== Login Logic ==========
-    function showGreeting(name) {
-      const greeting = document.getElementById('user-greeting');
-      greeting.textContent = `Welcome back, ${name}!`;
-      greeting.style.display = 'block';
-    }
-    
-    function showLogin(show) {
-      document.getElementById('login-form-container').style.display = show ? 'block' : 'none';
-    }
-    
-    function checkLogin() {
-      const name = localStorage.getItem('flight_username');
-      if (name) {
-        showGreeting(name);
-        showLogin(false);
-      } else {
-        showLogin(true);
-      }
-    }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      checkLogin();
-      
-      const loginForm = document.getElementById('login-form');
-      if (loginForm) {
-        loginForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const name = document.getElementById('username').value.trim();
-          if (name) {
-            localStorage.setItem('flight_username', name);
-            showGreeting(name);
-            showLogin(false);
-          }
-        });
-      }
-      
-      // Smooth scroll for navigation links
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', function(e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            
-            // Update active state
-            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-            this.classList.add('active');
-          }
-        });
-      });
-
-      // Setup clear buttons for all inputs
-      setupClearButtons();
-    });
-
-    // ========== Clear Button Functionality ==========
-    function setupClearButtons() {
-      // Text inputs (origin, destination)
-      const textInputs = ['origin', 'destination'];
-      textInputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        const clearBtn = input.nextElementSibling;
-        
-        // Show/hide clear button based on input value
-        input.addEventListener('input', function() {
-          if (this.value.trim()) {
-            clearBtn.style.display = 'flex';
-          } else {
-            clearBtn.style.display = 'none';
-          }
-        });
-        
-        // Clear button click
-        clearBtn.addEventListener('click', function() {
-          input.value = '';
-          delete input.dataset.code;
-          delete input.dataset.type;
-          clearBtn.style.display = 'none';
-          input.focus();
-        });
-      });
-
-      // Date inputs
-      const dateInputs = ['depart-date', 'return-date'];
-      dateInputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        const wrapper = input.parentElement;
-        const clearBtn = wrapper.querySelector('.clear-button');
-        
-        // Show/hide clear button based on input value
-        input.addEventListener('input', function() {
-          if (this.value) {
-            clearBtn.style.display = 'flex';
-          } else {
-            clearBtn.style.display = 'none';
-          }
-        });
-        
-        // Clear button click
-        clearBtn.addEventListener('click', function() {
-          input.value = '';
-          clearBtn.style.display = 'none';
-          input.focus();
-        });
-      });
-    }
-    
-    // ========== Autocomplete Logic ==========
-    function setupAutocomplete(inputId, suggestionsId) {
-      const input = document.getElementById(inputId);
-      const suggestionsDiv = document.getElementById(suggestionsId);
-      let currentList = null;
-      
-      input.addEventListener('input', function() {
-        const term = input.value.trim();
-        if (term.length < 2) {
-          if (currentList) currentList.remove();
-          return;
-        }
-        
-        // Show loading message
-        if (currentList) currentList.remove();
-        const loadingList = document.createElement('ul');
-        loadingList.className = 'suggestions-list';
-        loadingList.innerHTML = '<li class="autocomplete-loading">Searching...</li>';
-        suggestionsDiv.appendChild(loadingList);
-        currentList = loadingList;
-        
-        fetch(`https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(term)}&locale=en&types[]=country&types[]=city&types[]=airport`)
-          .then(r => r.json())
-          .then(data => {
-            if (currentList) currentList.remove();
-            
-            if (!data || data.length === 0) {
-              const noResultsList = document.createElement('ul');
-              noResultsList.className = 'suggestions-list';
-              noResultsList.innerHTML = '<li class="autocomplete-loading">No results found</li>';
-              suggestionsDiv.appendChild(noResultsList);
-              currentList = noResultsList;
-              return;
-            }
-            
-            const ul = document.createElement('ul');
-            ul.className = 'suggestions-list';
-            
-            data.forEach(item => {
-              let label = item.name;
-              if (item.type === 'airport') {
-                label += ` (${item.code}) - ${item.city_name}, ${item.country_name}`;
-              } else if (item.type === 'city') {
-                label += ` (${item.code}) - ${item.country_name}`;
-              } else if (item.type === 'country') {
-                label += ` (${item.code})`;
-              }
-              
-              const li = document.createElement('li');
-              li.textContent = label;
-              li.dataset.code = item.code;
-              li.dataset.name = item.name;
-              li.dataset.type = item.type;
-              
-              li.addEventListener('mousedown', function(e) {
-                input.value = label;
-                input.dataset.code = item.code;
-                input.dataset.type = item.type;
-                ul.remove();
-              });
-              
-              ul.appendChild(li);
-            });
-            
-            if (data.length > 0) suggestionsDiv.appendChild(ul);
-            currentList = ul;
-          })
-          .catch(error => {
-            console.error('Autocomplete error:', error);
-            if (currentList) currentList.remove();
-            const errorList = document.createElement('ul');
-            errorList.className = 'suggestions-list';
-            errorList.innerHTML = '<li class="autocomplete-loading">Error loading results</li>';
-            suggestionsDiv.appendChild(errorList);
-            currentList = errorList;
-          });
-      });
-      
-      input.addEventListener('blur', function() {
-        setTimeout(() => { if (currentList) currentList.remove(); }, 200);
-      });
-    }
-    
-    setupAutocomplete('origin', 'origin-suggestions');
-    setupAutocomplete('destination', 'destination-suggestions');
-    
-    // ========== Flight Search Logic ==========
-    document.getElementById('flight-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const originInput = document.getElementById('origin');
-      const destInput = document.getElementById('destination');
-      const departDate = document.getElementById('depart-date').value;
-      const returnDate = document.getElementById('return-date').value;
-      const warningContainer = document.getElementById('warning-messages');
-      
-      const originCode = originInput.dataset.code;
-      const destCode = destInput.dataset.code;
-      
-      // Clear previous warnings
-      warningContainer.innerHTML = '';
-      warningContainer.style.display = 'none';
-      
-      // Validation
-      if (!originCode || !destCode) {
-        alert('Please select valid airports or cities from the suggestions.');
-        return;
-      }
-      
-      // Date validation and warnings
-      const warnings = [];
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      
-      if (departDate) {
-        const departDateObj = new Date(departDate);
-        if (departDateObj < today) {
-          warnings.push({
-            type: 'warning',
-            icon: '⚠️',
-            message: 'Departure date is in the past. Flights shown may no longer be available.'
-          });
-        }
-      }
-      
-      if (returnDate) {
-        const returnDateObj = new Date(returnDate);
-        if (returnDateObj < today) {
-          warnings.push({
-            type: 'warning',
-            icon: '⚠️',
-            message: 'Return date is in the past. Flights shown may no longer be available.'
-          });
-        }
-        
-        if (departDate) {
-          const departDateObj = new Date(departDate);
-          if (returnDateObj < departDateObj) {
-            warnings.push({
-              type: 'error',
-              icon: '❌',
-              message: 'Return date cannot be before departure date. Please adjust your dates.'
-            });
-            return; // Stop execution for this error
-          }
-        }
-      }
-      
-      // Display warnings
-      if (warnings.length > 0) {
-        warningContainer.innerHTML = warnings.map(w => `
-          <div class="warning-message ${w.type}">
-            <span class="warning-icon">${w.icon}</span>
-            <span class="warning-text">${w.message}</span>
-          </div>
-        `).join('');
-        warningContainer.style.display = 'block';
-      }
-      
-      const flightsList = document.getElementById('flights-list');
-      const returnFlightsList = document.getElementById('return-flights-list');
-      const loadingIndicator = document.getElementById('loading-indicator');
-      
-      flightsList.innerHTML = '';
-      returnFlightsList.innerHTML = '';
-      
-      // Show loading indicator
-      loadingIndicator.setAttribute('aria-hidden', 'false');
-      loadingIndicator.style.display = 'flex';
-      
-      // Hide loading indicator function
-      function hideLoading() {
-        loadingIndicator.setAttribute('aria-hidden', 'true');
-        loadingIndicator.style.display = 'none';
-      }
-      
-      // Helper to format date
-      function formatDate(dt) {
-        return dt ? new Date(dt).toLocaleDateString('en-GB') : 'N/A';
-      }
-      
-      // Helper to add flight info
-      function addFlightInfo(type, flight, listElem) {
-        const li = document.createElement('li');
-        li.className = 'flight-result-card';
-        li.innerHTML = `
-          <div class="flight-header"><strong>${type}</strong></div>
-          <div class="flight-details">
-            <div class="flight-route"><strong>From:</strong> ${flight.origin} <strong>To:</strong> ${flight.destination}</div>
-            <div class="flight-date"><strong>Departure:</strong> ${formatDate(flight.departure_at)}</div>
-            <div class="flight-price"><strong>Price:</strong> ${flight.value} ${flight.currency}</div>
-            <div class="flight-airline"><strong>Airline:</strong> ${flight.airline || 'N/A'}</div>
-            <div class="flight-number"><strong>Flight #:</strong> ${flight.flight_number || 'N/A'}</div>
-            <div class="flight-booking"><a href="404.html" class="book-button">Book Now</a></div>
-          </div>
-        `;
-        listElem.appendChild(li);
-      }
-      
-      // Fetch and display flights
-      function fetchFlights(from, to, date, typeLabel, listElem, isLastRequest) {
-        const url = `https://flightfinder-website.onrender.com/api/travelpayouts/flights?origin=${from}&destination=${to}&departure_at=${date}`;
-        
-        fetch(url)
-          .then(async r => {
-            if (!r.ok) {
-              const text = await r.text();
-              throw new Error(`HTTP ${r.status}: ${text}`);
-            }
-            return r.json();
-          })
-          .then(data => {
-            if (data.error) {
-              listElem.innerHTML = `<li class="error-message">API Error: ${data.error}</li>`;
-              console.error('API Error:', data);
-              if (isLastRequest) hideLoading();
-              return;
-            }
-            
-            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-              // Sort by proximity to selected date
-              const sorted = data.data.slice().sort((a, b) => {
-                const dA = Math.abs(new Date(a.departure_at) - new Date(date));
-                const dB = Math.abs(new Date(b.departure_at) - new Date(date));
-                return dA - dB;
-              });
-              sorted.slice(0, 5).forEach(flight => addFlightInfo(typeLabel, flight, listElem));
-            } else {
-              listElem.innerHTML = `<li class="no-results">No ${typeLabel.toLowerCase()} flights found.</li>`;
-              console.warn('No flights found:', data);
-            }
-            
-            // Hide loading when last request completes
-            if (isLastRequest) {
-              hideLoading();
-              // Scroll to results
-              setTimeout(() => {
-                flightsList.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }, 100);
-            }
-          })
-          .catch(err => {
-            listElem.innerHTML = `<li class="error-message">Error fetching ${typeLabel.toLowerCase()} flights.<br><span style='color:#dc3545;'>${err.message}</span></li>`;
-            console.error('Fetch error:', err);
-            if (isLastRequest) hideLoading();
-          });
-      }
-      
-      // Fetch outbound flights
-      const hasReturnDate = !!returnDate;
-      fetchFlights(originCode, destCode, departDate, 'Departure', flightsList, !hasReturnDate);
-      
-      // Fetch return flights if date provided
-      returnFlightsList.innerHTML = '<li class="section-header"><strong>Return Flights</strong></li>';
-      if (hasReturnDate) {
-        fetchFlights(destCode, originCode, returnDate, 'Return', returnFlightsList, true);
-      } else {
-        returnFlightsList.innerHTML += '<li class="info-message">No return date selected.</li>';
-      }
-    });
-  </script>
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- EXTERNAL JAVASCRIPT FILE                                                -->
+  <!-- CRITICAL: This must be at the END of body so HTML loads first          -->
+  <!-- The flightfinder.js file contains all interactive functionality:        -->
+  <!-- - Login system (localStorage)                                           -->
+  <!-- - Clear buttons (show/hide based on input value)                        -->
+  <!-- - Autocomplete (airport/city suggestions)                               -->
+  <!-- - Form validation (date checking, warnings)                             -->
+  <!-- - API calls (fetch flights from backend)                                -->
+  <!-- - Results display (create and populate flight cards)                    -->
+  <!-- - Navigation smooth scroll                                              -->
+  <!--                                                                          -->
+  <!-- IMPORTANT: flightfinder.js MUST be in the same directory as this file!  -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <script src="flightfinder.js"></script>
+  <!-- Loads external JavaScript file -->
+  <!-- Placed at END of body ensures all HTML elements exist before JS runs -->
+  
 </body>
 </html>
