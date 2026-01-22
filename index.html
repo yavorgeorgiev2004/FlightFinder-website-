@@ -175,222 +175,145 @@
           <!-- Contains 4 input fields: From, To, Departure Date, Return Date    -->
           <!-- Form submission is handled by JavaScript (no page reload)         -->
           <!-- ═════════════════════════════════════════════════════════════════ -->
-          <form id="flight-form" class="search-form" role="search" aria-label="Flight search form">
-            <!-- role="search": ARIA landmark role - identifies this as search functionality -->
-            <!-- aria-label: Describes the form purpose for screen reader users -->
-            
-            <!-- SEARCH GRID: Container for all 4 input fields in responsive grid layout -->
-            <div class="search-grid">
-              <!-- CSS Grid: 4 columns on desktop, stacks vertically on mobile -->
-              
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <!-- ORIGIN INPUT (FROM): Departure airport/city with autocomplete -->
-              <!-- User types → Autocomplete shows suggestions → Stores code     -->
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <div class="form-group">
-                <!-- Label with decorative icon -->
-                <label for="origin" class="form-label">
-                  <!-- SVG icon: Circle with dot representing origin point/location -->
-                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
-                    <!-- Outer circle with center at (12,12) and radius 8 -->
-                    <circle cx="12" cy="12" r="3" fill="currentColor"/>
-                    <!-- Inner filled dot with center at (12,12) and radius 3 -->
-                  </svg>
-                  From
-                </label>
-                
-                <!-- Wrapper div for positioning input, clear button, and dropdown -->
-                <div class="autocomplete-wrapper">
-                  <!-- position: relative in CSS for absolute positioning of children -->
-                  
-                  <!-- TEXT INPUT for typing airport/city name -->
-                  <input 
-                    type="text" 
-                    id="origin" 
-                    name="origin" 
-                    class="form-input" 
-                    placeholder="City or Airport" <!-- Hint text shown when input is empty -->
-                    autocomplete="off" <!-- Disable browser's built-in autocomplete -->
-                    required <!-- Field must be filled before form submission -->
-                    aria-autocomplete="list" <!-- Tells screen readers autocomplete dropdown available -->
-                  >
-                  <!-- JavaScript stores selected airport code in: input.dataset.code -->
-                  <!-- Example: When user selects "London", code "LON" stored in dataset -->
-                  
-                  <!-- CLEAR BUTTON: X button to clear the input field -->
-                  <button type="button" class="clear-button" aria-label="Clear origin" style="display: none;">
-                    <!-- type="button": Prevents triggering form submission when clicked -->
-                    <!-- style="display: none;": Hidden by default, shown by JavaScript -->
-                    <!-- aria-label: Describes button purpose for screen readers -->
-                    
-                    <!-- X icon (cross symbol for "close" or "clear") -->
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                      <!-- Two diagonal lines forming an X shape -->
-                      <!-- M=move to, L=line to (SVG path commands) -->
-                    </svg>
-                  </button>
-                  
-                  <!-- AUTOCOMPLETE DROPDOWN: Container for suggestion list -->
-                  <div id="origin-suggestions" class="suggestions"></div>
-                  <!-- Initially empty, JavaScript populates with <ul> containing <li> suggestions -->
-                  <!-- Example content after typing "lon": -->
-                  <!-- <ul class="suggestions-list"> -->
-                  <!--   <li data-code="LON">London (LON) - United Kingdom</li> -->
-                  <!--   <li data-code="LHR">Heathrow (LHR) - London, United Kingdom</li> -->
-                  <!-- </ul> -->
-                </div>
-              </div>
+         <form id="flight-form" class="search-form" role="search" aria-label="Flight search form">
+  
+  <div class="search-grid">
+    
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- FROM FIELD                                              -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="form-group">
+      <label for="origin" class="form-label">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="12" cy="12" r="8" stroke="currentColor" stroke-width="2"/>
+          <circle cx="12" cy="12" r="3" fill="currentColor"/>
+        </svg>
+        From
+      </label>
+      <div class="autocomplete-wrapper">
+        <input 
+          type="text" 
+          id="origin" 
+          name="origin" 
+          class="form-input" 
+          placeholder="City or Airport"
+          autocomplete="off"
+          required
+          aria-autocomplete="list"
+        >
+        <button type="button" class="clear-button" aria-label="Clear origin" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div id="origin-suggestions" class="suggestions"></div>
+      </div>
+    </div>
 
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <!-- DESTINATION INPUT (TO): Arrival airport/city with autocomplete-->
-              <!-- Identical structure to Origin input above                     -->
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <div class="form-group">
-                <label for="destination" class="form-label">
-                  <!-- SVG icon: Stacked layers representing destination/arrival -->
-                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <!-- Top layer -->
-                    <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <!-- Bottom layer -->
-                    <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                    <!-- Middle layer -->
-                  </svg>
-                  To
-                </label>
-                <div class="autocomplete-wrapper">
-                  <input 
-                    type="text" 
-                    id="destination" 
-                    name="destination" 
-                    class="form-input" 
-                    placeholder="City or Airport"
-                    autocomplete="off"
-                    required
-                    aria-autocomplete="list"
-                  >
-                  <button type="button" class="clear-button" aria-label="Clear destination" style="display: none;">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  </button>
-                  <div id="destination-suggestions" class="suggestions"></div>
-                </div>
-              </div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- TO FIELD                                                -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="form-group">
+      <label for="destination" class="form-label">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+          <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+        </svg>
+        To
+      </label>
+      <div class="autocomplete-wrapper">
+        <input 
+          type="text" 
+          id="destination" 
+          name="destination" 
+          class="form-input" 
+          placeholder="City or Airport"
+          autocomplete="off"
+          required
+          aria-autocomplete="list"
+        >
+        <button type="button" class="clear-button" aria-label="Clear destination" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+        <div id="destination-suggestions" class="suggestions"></div>
+      </div>
+    </div>
 
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <!-- DEPARTURE DATE: HTML5 date picker for selecting departure     -->
-              <!-- Shows native date picker UI (different on each browser/OS)    -->
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <div class="form-group">
-                <label for="depart-date" class="form-label">
-                  <!-- SVG icon: Calendar -->
-                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                    <!-- Calendar box with rounded corners (rx="2") -->
-                    <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    <!-- Horizontal line across top + two vertical binding rings -->
-                  </svg>
-                  Departure
-                </label>
-                <div class="date-input-wrapper">
-                  <!-- Wrapper for positioning clear button absolutely -->
-                  
-                  <input 
-                    type="date" <!-- HTML5 date input - shows native date picker -->
-                    id="depart-date" 
-                    name="depart-date" 
-                    class="form-input" 
-                    required <!-- Mandatory field - must be filled -->
-                  >
-                  <!-- Value format is always YYYY-MM-DD (e.g., "2025-02-15") -->
-                  <!-- Browser shows localized date picker UI based on user's locale -->
-                  
-                  <button type="button" class="clear-button" aria-label="Clear departure date" style="display: none;">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- DEPARTURE DATE                                          -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="form-group">
+      <label for="depart-date" class="form-label">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Departure
+      </label>
+      <div class="date-input-wrapper">
+        <input 
+          type="date" 
+          id="depart-date" 
+          name="depart-date" 
+          class="form-input" 
+          required
+        >
+        <button type="button" class="clear-button" aria-label="Clear departure date" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <!-- RETURN DATE: Optional date picker for round-trip flights      -->
-              <!-- NOT required - user can leave empty for one-way flights       -->
-              <!-- ═════════════════════════════════════════════════════════════ -->
-              <div class="form-group">
-                <label for="return-date" class="form-label">
-                  <!-- Same calendar icon as departure date -->
-                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                    <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
-                    <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                  </svg>
-                  Return
-                </label>
-                <div class="date-input-wrapper">
-                  <input 
-                    type="date" 
-                    id="return-date" 
-                    name="return-date" 
-                    class="form-input"
-                    <!-- Note: NO "required" attribute - this field is optional -->
-                    <!-- Empty value = one-way flight, filled value = round-trip -->
-                  >
-                  <button type="button" class="clear-button" aria-label="Clear return date" style="display: none;">
-                    <svg viewBox="0 0 24 24" fill="none">
-                      <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                    </svg>
-                  </button>
-                </div>
-              </div>
-            </div>
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <!-- RETURN DATE                                             -->
+    <!-- ═══════════════════════════════════════════════════════ -->
+    <div class="form-group">
+      <label for="return-date" class="form-label">
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2"/>
+          <path d="M3 10H21M8 2V6M16 2V6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Return
+      </label>
+      <div class="date-input-wrapper">
+        <input 
+          type="date" 
+          id="return-date" 
+          name="return-date" 
+          class="form-input"
+        >
+        <button type="button" class="clear-button" aria-label="Clear return date" style="display: none;">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
 
-            <!-- ═══════════════════════════════════════════════════════════════ -->
-            <!-- SEARCH BUTTON: Large orange button to submit the search form     -->
-            <!-- Triggers form submission event (intercepted by JavaScript)       -->
-            <!-- ═══════════════════════════════════════════════════════════════ -->
-            <button type="submit" class="search-button" aria-label="Search for flights">
-              <!-- type="submit": Clicking triggers form's 'submit' event -->
-              <!-- JavaScript intercepts event to prevent page reload -->
-              <!-- aria-label: Descriptive label for screen reader users -->
-              
-              <!-- Magnifying glass icon (universal search symbol) -->
-              <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
-                <!-- Circle part of magnifying glass -->
-                <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <!-- Handle of magnifying glass (diagonal line) -->
-              </svg>
-              <span>Search Flights</span> <!-- Button text -->
-            </button>
+  </div>
 
-            <!-- ═══════════════════════════════════════════════════════════════ -->
-            <!-- WARNING MESSAGES CONTAINER: Shows date validation warnings       -->
-            <!-- Hidden by default, populated by JavaScript when needed          -->
-            <!-- Examples: "Past date", "Return before departure"                -->
-            <!-- ═══════════════════════════════════════════════════════════════ -->
-            <div id="warning-messages" class="warning-messages" style="display: none;"></div>
-            <!-- Initially empty and hidden -->
-            <!-- JavaScript inserts warning HTML here when dates are invalid -->
-            <!-- Example content: -->
-            <!-- <div class="warning-message warning"> -->
-            <!--   <span class="warning-icon">⚠️</span> -->
-            <!--   <span class="warning-text">Departure date is in the past...</span> -->
-            <!-- </div> -->
-          </form>
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- SEARCH BUTTON                                           -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <button type="submit" class="search-button" aria-label="Search for flights">
+    <svg class="button-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
+      <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span>Search Flights</span>
+  </button>
 
-          <!-- ═════════════════════════════════════════════════════════════════ -->
-          <!-- FLIGHT RESULTS LISTS: Display search results                      -->
-          <!-- Initially empty, populated by JavaScript after successful search  -->
-          <!-- Two separate lists: departure flights and return flights          -->
-          <!-- ═════════════════════════════════════════════════════════════════ -->
-          <ul id="flights-list"></ul>
-          <!-- Departure/outbound flights displayed here -->
-          <!-- JavaScript creates <li> elements with flight card HTML -->
-          
-          <ul id="return-flights-list"></ul>
+  <div id="warning-messages" class="warning-messages" style="display: none;"></div>
+</form>
+
+<!-- Flight Results Lists -->
+<ul id="flights-list"></ul>
+<ul id="return-flights-list"></ul>
           <!-- Return/inbound flights displayed here (if round-trip selected) -->
           <!-- Shows message "No return date selected" if one-way trip -->
         </div>
