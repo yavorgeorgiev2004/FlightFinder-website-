@@ -1,181 +1,164 @@
 
-
-<!DOCTYPE html> <!-- HTML5 document type declaration - tells browser this is modern HTML -->
-<html lang="en"> <!-- Root HTML element, lang="en" specifies English language for accessibility -->
+<!DOCTYPE html> <!-- HTML5 document type declaration -->
+<html lang="en"> <!-- Root element with English language attribute -->
 <head>
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- HEAD SECTION: Meta information, links to external resources             -->
-  <!-- This content is not visible on the page but provides important metadata -->
+  <!-- HEAD SECTION: Page metadata and external resource links                 -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   
-  <!-- Character encoding - UTF-8 supports all languages and special characters -->
-  <meta charset="UTF-8">
+  <meta charset="UTF-8"> <!-- Character encoding - supports all languages/symbols -->
   
   <!-- Responsive viewport meta tag - makes page mobile-friendly -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- width=device-width: Sets viewport width to match device screen width -->
-  <!-- initial-scale=1.0: Sets initial zoom level to 100% (no zoom) -->
+  <!-- width=device-width: Page width matches device screen width -->
+  <!-- initial-scale=1.0: No zoom on page load -->
   
-  <!-- SEO meta description - appears in Google search results below title -->
+  <!-- SEO meta description - shown in Google search results -->
   <meta name="description" content="FlightFinder - Search and compare flight prices from multiple airlines. Find the best deals on flights worldwide.">
   
-  <!-- Page title - appears in browser tab and bookmarks -->
+  <!-- Page title - appears in browser tab -->
   <title>FlightFinder – Find Your Perfect Flight</title>
   
-  <!-- Link to external CSS stylesheet - contains all visual styling -->
+  <!-- External CSS stylesheet - contains all visual styling -->
   <link rel="stylesheet" href="flightfinder-theme.css">
   
-  <!-- Favicon - small icon shown in browser tab (airplane emoji as SVG) -->
+  <!-- Favicon - small icon in browser tab (plane emoji as SVG) -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✈️</text></svg>">
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <!-- TRAVELPAYOUTS VERIFICATION SCRIPT                                       -->
-  <!-- This script verifies website ownership with Travelpayouts for API access-->
-  <!-- Required for using their flight search API                              -->
+  <!-- Required for API access - verifies website ownership                    -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <script data-noptimize="1" data-cfasync="false" data-wpfc-render="false">
-    <!-- Attributes prevent optimization/caching that might break verification -->
-    
-    (function () { // IIFE (Immediately Invoked Function Expression) - runs right away
-      var script = document.createElement("script"); // Create new <script> element in memory
-      script.async = 1; // Load asynchronously - doesn't block page rendering
-      script.src = 'https://tp-em.com/NDg0Njc4.js?t=484678'; // Travelpayouts verification endpoint URL
-      document.head.appendChild(script); // Add script element to page <head>
-    })(); // () executes the function immediately after defining it
+    // IIFE (Immediately Invoked Function Expression) - runs immediately
+    (function () {
+      var script = document.createElement("script"); // Create new script element
+      script.async = 1; // Load asynchronously (non-blocking)
+      script.src = 'https://tp-em.com/NDg0Njc4.js?t=484678'; // Travelpayouts verification URL
+      document.head.appendChild(script); // Add script to page head
+    })(); // () executes function immediately
   </script>
 </head>
 <body>
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- SKIP LINK: Accessibility feature for keyboard-only users                -->
-  <!-- Allows users to bypass navigation and jump straight to main content     -->
-  <!-- Hidden by default but appears when focused with Tab key                 -->
+  <!-- SKIP LINK: Accessibility feature for keyboard navigation                -->
+  <!-- Hidden by default, appears when focused with Tab key                    -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <!-- href="#main-content" links to element with id="main-content" below -->
+  <!-- href="#main-content": Jumps to element with id="main-content" -->
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <!-- HEADER: Top navigation bar (sticky - stays at top when scrolling)       -->
-  <!-- Contains logo and navigation menu                                       -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <header class="header" role="banner">
-    <!-- role="banner": ARIA landmark role - identifies this as main site header -->
-    <!-- Screen readers announce "banner" to help users understand page structure -->
+    <!-- role="banner": ARIA landmark - tells screen readers this is main header -->
     
     <nav class="nav-container" role="navigation" aria-label="Main navigation">
-      <!-- role="navigation": ARIA landmark - marks this as navigation section -->
-      <!-- aria-label: Provides descriptive label for screen reader users -->
+      <!-- role="navigation": ARIA landmark - marks navigation section -->
+      <!-- aria-label: Describes navigation for screen readers -->
       
-      <!-- LOGO SECTION: Brand identity with icon and text -->
+      <!-- LOGO: Plane icon + brand name -->
       <div class="logo">
-        <!-- SVG PLANE ICON: Scalable vector graphic (stays sharp at any size) -->
+        <!-- SVG plane icon - scalable vector graphic (stays sharp at any size) -->
         <svg class="logo-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <!-- viewBox: Defines SVG coordinate system (0-24 on x and y axis) -->
           <!-- aria-hidden="true": Decorative image, hidden from screen readers -->
+          <!-- viewBox: SVG coordinate system (0-24 on x and y axis) -->
           <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" fill="currentColor"/>
-          <!-- path: Defines shape using SVG path commands (M=move, L=line, etc.) -->
-          <!-- fill="currentColor": Fills shape with current text color from CSS -->
+          <!-- path: Defines shape using SVG coordinates -->
+          <!-- fill="currentColor": Uses current text color from CSS -->
         </svg>
-        <span class="logo-text">FlightFinder</span> <!-- Brand name text -->
+        <span class="logo-text">FlightFinder</span> <!-- Brand name -->
       </div>
       
-      <!-- NAVIGATION MENU: Links to different sections of the page -->
-      <ul class="nav-menu"> <!-- Unordered list of navigation links -->
+      <!-- NAVIGATION MENU: Links to page sections -->
+      <ul class="nav-menu">
         <li><a href="#search-section" class="nav-link active">Search</a></li>
-        <!-- href="#search-section": Anchor link - jumps to element with id="search-section" -->
-        <!-- class="active": CSS class to highlight the current/active section -->
+        <!-- href="#search-section": Anchor link - jumps to search section -->
+        <!-- class="active": Highlights current section -->
         
         <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-        <!-- Links to "How It Works" section further down the page -->
+        <!-- Jumps to "How It Works" section -->
         
         <li><a href="#about" class="nav-link">About</a></li>
-        <!-- Links to "About" section at bottom of page -->
+        <!-- Jumps to "About" section -->
       </ul>
     </nav>
   </header>
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- MAIN CONTENT AREA: All primary page content contained here              -->
+  <!-- MAIN CONTENT: All primary page content                                  -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <main id="main-content" role="main">
-    <!-- id="main-content": Target for skip link navigation above -->
-    <!-- role="main": ARIA landmark role - marks main content area of page -->
+    <!-- id="main-content": Target for skip link -->
+    <!-- role="main": ARIA landmark - marks main content area -->
     
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- HERO SECTION: Large banner with main headline and tagline              -->
-    <!-- Eye-catching first section users see when page loads                   -->
+    <!-- HERO SECTION: Large banner with main headline                           -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section class="hero" aria-labelledby="hero-heading">
-      <!-- aria-labelledby: Associates section with its heading for accessibility -->
-      <!-- Screen readers will announce the h1 text as label for this section -->
+      <!-- aria-labelledby: Associates section with its heading -->
       
       <div class="hero-content">
         <h1 id="hero-heading" class="hero-title">Find Your Perfect Flight</h1>
-        <!-- h1: Main page heading (should only have ONE per page for SEO) -->
-        <!-- id="hero-heading": Referenced by aria-labelledby above -->
+        <!-- h1: Main page heading (only one per page for SEO) -->
         
         <p class="hero-subtitle">Search millions of flights and discover the best deals worldwide</p>
-        <!-- Tagline/description text explaining the service -->
+        <!-- Tagline/description text -->
       </div>
       
       <div class="hero-background" aria-hidden="true"></div>
-      <!-- Decorative background element (styled with CSS gradients) -->
+      <!-- Decorative background element -->
       <!-- aria-hidden="true": Not meaningful content, hidden from screen readers -->
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- SEARCH SECTION: Core functionality - flight search form                 -->
-    <!-- This is the main feature and most important part of the application     -->
+    <!-- SEARCH SECTION: Main flight search form                                 -->
+    <!-- This is the core functionality of the application                       -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="search-section" class="search-section" aria-labelledby="search-heading">
-      <!-- id="search-section": Target for navigation links and 404 page redirect -->
+      <!-- id="search-section": Target for navigation links and 404 redirect -->
       
-      <div class="container"> <!-- Container div for max-width and horizontal centering -->
+      <div class="container"> <!-- Container for max-width and centering -->
         <h2 id="search-heading" class="section-title visually-hidden">Flight Search</h2>
-        <!-- h2: Section heading (h1 was used above for main page title) -->
-        <!-- class="visually-hidden": Hidden visually but still read by screen readers -->
-        <!-- Provides context for screen reader users about what this section is -->
+        <!-- class="visually-hidden": Hidden visually but read by screen readers -->
         
-        <div class="search-card"> <!-- White card container for all search elements -->
+        <div class="search-card"> <!-- White card containing all search elements -->
           
           <!-- ═════════════════════════════════════════════════════════════════ -->
-          <!-- USER GREETING: Personalized welcome message after login           -->
+          <!-- USER GREETING: Shows after login                                  -->
           <!-- Hidden by default, JavaScript shows it after user logs in         -->
           <!-- ═════════════════════════════════════════════════════════════════ -->
           <div id="user-greeting" style="display:none;"></div>
-          <!-- style="display:none;": Initially hidden, JavaScript changes this -->
-          <!-- JavaScript will insert text like: "Welcome back, John!" -->
+          <!-- JavaScript will insert: "Welcome back, [Name]!" here -->
           
           <!-- ═════════════════════════════════════════════════════════════════ -->
           <!-- LOGIN FORM: Collects user's name for personalization              -->
-          <!-- Shows on first visit, hidden after user submits name              -->
-          <!-- Name is stored in browser's localStorage                          -->
+          <!-- Shown before login, hidden after login                            -->
           <!-- ═════════════════════════════════════════════════════════════════ -->
           <div id="login-form-container">
             <form id="login-form">
-              <!-- Form submission is intercepted by JavaScript (prevents page reload) -->
+              <!-- Form submission handled by JavaScript (in flightfinder.js) -->
               
               <label for="username">Enter your name:</label>
-              <!-- for="username": Associates label with input (clicking label focuses input) -->
+              <!-- for="username": Associates label with input -->
               
               <input type="text" id="username" name="username" required>
-              <!-- type="text": Single-line text input field -->
-              <!-- id="username": Unique identifier for JavaScript to select this element -->
-              <!-- name="username": Form field name (used if form was submitted traditionally) -->
-              <!-- required: HTML5 validation - browser won't submit if field is empty -->
+              <!-- type="text": Single-line text input -->
+              <!-- id="username": Unique identifier for JavaScript -->
+              <!-- required: Browser won't submit if empty -->
               
               <button type="submit">Login</button>
-              <!-- type="submit": Clicking this button triggers form submission event -->
-              <!-- JavaScript intercepts the submit event to save name to localStorage -->
+              <!-- type="submit": Triggers form submission -->
+              <!-- JavaScript intercepts to save name to localStorage -->
             </form>
           </div>
 
           <!-- ═════════════════════════════════════════════════════════════════ -->
           <!-- FLIGHT SEARCH FORM: Main search functionality                     -->
-          <!-- Contains 4 input fields: From, To, Departure Date, Return Date    -->
-          <!-- Form submission is handled by JavaScript (no page reload)         -->
+          <!-- Contains 4 inputs: From, To, Departure Date, Return Date          -->
           <!-- ═════════════════════════════════════════════════════════════════ -->
-         <form id="flight-form" class="search-form" role="search" aria-label="Flight search form">
+          <form id="flight-form" class="search-form" role="search" aria-label="Flight search form">
   
   <div class="search-grid">
     
@@ -314,51 +297,45 @@
 <!-- Flight Results Lists -->
 <ul id="flights-list"></ul>
 <ul id="return-flights-list"></ul>
-          <!-- Return/inbound flights displayed here (if round-trip selected) -->
-          <!-- Shows message "No return date selected" if one-way trip -->
         </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- LOADING INDICATOR: Animated spinner shown during API calls             -->
-    <!-- Hidden by default, JavaScript shows/hides it during search             -->
+    <!-- LOADING INDICATOR: Animated spinner shown during search                 -->
+    <!-- Hidden by default, JavaScript shows/hides during API calls             -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <div id="loading-indicator" class="loading-container" role="status" aria-live="polite" aria-hidden="true">
-      <!-- role="status": ARIA role - indicates this element shows status information -->
+      <!-- role="status": ARIA role - indicates status information -->
       <!-- aria-live="polite": Screen reader announces changes when user is idle -->
-      <!-- aria-hidden="true": Initially hidden from screen readers and visually -->
+      <!-- aria-hidden="true": Initially hidden from screen readers -->
       
       <div class="loading-spinner" aria-label="Loading flights"></div>
-      <!-- Empty div styled with CSS to create animated spinning circle -->
-      <!-- CSS animation rotates this element 360 degrees continuously -->
+      <!-- Animated spinning circle (CSS animation) -->
       
       <p class="loading-text">Searching for the best flights...</p>
-      <!-- Main loading message shown to user -->
+      <!-- Main loading message -->
       
       <p class="loading-subtext">This may take a few moments</p>
-      <!-- Additional context - API calls can take a few seconds -->
+      <!-- Additional context -->
     </div>
-    <!-- JavaScript controls visibility by changing: -->
-    <!-- 1. aria-hidden attribute (for accessibility) -->
-    <!-- 2. display CSS property (for visual hiding/showing) -->
+    <!-- JavaScript controls visibility by changing aria-hidden and display style -->
 
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- HOW IT WORKS SECTION: Three feature cards explaining the process        -->
-    <!-- Educational content showing users how to use the service                -->
+    <!-- HOW IT WORKS SECTION: Three feature cards                               -->
+    <!-- Explains the search process to users                                    -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="how-it-works" class="info-section" aria-labelledby="how-it-works-heading">
       <div class="container">
         <h2 id="how-it-works-heading" class="section-title">How It Works</h2>
         
         <div class="features-grid">
-          <!-- CSS Grid layout: 3 equal columns on desktop, stacks on mobile -->
+          <!-- CSS Grid: 3 columns on desktop, stacks on mobile -->
           
           <!-- FEATURE CARD 1: Search -->
           <article class="feature-card">
-            <!-- article: Semantic HTML5 element for self-contained content -->
             <div class="feature-icon" aria-hidden="true">
-              <!-- Magnifying glass icon (same as search button) -->
+              <!-- Magnifying glass icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <circle cx="11" cy="11" r="8" stroke="currentColor" stroke-width="2"/>
                 <path d="M21 21L16.65 16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -371,7 +348,7 @@
           <!-- FEATURE CARD 2: Compare -->
           <article class="feature-card">
             <div class="feature-icon" aria-hidden="true">
-              <!-- Arrow icon representing progression/comparison -->
+              <!-- Arrow icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M9 5L16 12L9 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
@@ -383,7 +360,7 @@
           <!-- FEATURE CARD 3: Book -->
           <article class="feature-card">
             <div class="feature-icon" aria-hidden="true">
-              <!-- Plane icon (same as logo) -->
+              <!-- Plane icon -->
               <svg viewBox="0 0 24 24" fill="none">
                 <path d="M21 16V14L13 9V3.5C13 2.67 12.33 2 11.5 2C10.67 2 10 2.67 10 3.5V9L2 14V16L10 13.5V19L8 20.5V22L11.5 21L15 22V20.5L13 19V13.5L21 16Z" fill="currentColor"/>
               </svg>
@@ -396,8 +373,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
-    <!-- ABOUT SECTION: Information about the FlightFinder service              -->
-    <!-- Explains what the service does and how it works                        -->
+    <!-- ABOUT SECTION: Information about FlightFinder                           -->
     <!-- ═══════════════════════════════════════════════════════════════════════ -->
     <section id="about" class="info-section about-section" aria-labelledby="about-heading">
       <div class="container">
@@ -411,23 +387,22 @@
   </main>
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- FOOTER: Bottom section with site information and links                  -->
-  <!-- Three-column layout with brand info, links, and copyright              -->
+  <!-- FOOTER: Bottom section with links and copyright                         -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <footer class="footer" role="contentinfo">
-    <!-- role="contentinfo": ARIA landmark role - identifies footer region -->
+    <!-- role="contentinfo": ARIA landmark - marks footer -->
     
     <div class="container">
       <div class="footer-content">
-        <!-- CSS Grid: 3 equal columns on desktop, stacks on mobile -->
+        <!-- 3-column grid layout -->
         
-        <!-- COLUMN 1: Brand Information -->
+        <!-- COLUMN 1: Brand -->
         <div class="footer-section">
           <h3 class="footer-title">FlightFinder</h3>
           <p class="footer-text">Your trusted flight search companion</p>
         </div>
         
-        <!-- COLUMN 2: Navigation Links (same as header) -->
+        <!-- COLUMN 2: Navigation Links -->
         <div class="footer-section">
           <h4 class="footer-subtitle">Links</h4>
           <ul class="footer-links">
@@ -447,756 +422,10 @@
     </div>
   </footer>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <!-- JAVASCRIPT: All interactive functionality and dynamic behavior          -->
-  <!-- This is where all the magic happens - handles user interactions,        -->
-  <!-- API calls, data processing, and dynamic content updates                 -->
-  <!-- ═══════════════════════════════════════════════════════════════════════ -->
-  <script>
-    // =========================================================================
-    // CONFIGURATION: API Keys and Constants
-    // =========================================================================
-    
-    // Travelpayouts API authentication key (public key, safe to expose in frontend)
-    const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
-    
-    // =========================================================================
-    // SECTION 1: LOGIN SYSTEM
-    // Manages user authentication and personalization using localStorage
-    // LocalStorage persists data even after browser is closed
-    // =========================================================================
-    
-    /**
-     * Displays personalized greeting with user's name
-     * Called after successful login or when page loads if user already logged in
-     * @param {string} name - User's name from localStorage
-     */
-    function showGreeting(name) {
-      const greetingDiv = document.getElementById('user-greeting'); // Get greeting container
-      greetingDiv.textContent = `Welcome back, ${name}!`; // Set greeting text using template literal
-      // Template literal (${}): Allows embedding variables in strings
-      greetingDiv.style.display = 'block'; // Make greeting visible
-    }
-    
-    /**
-     * Shows or hides the login form
-     * @param {boolean} show - True to display form, false to hide it
-     */
-    function showLogin(show) {
-      const loginContainer = document.getElementById('login-form-container');
-      loginContainer.style.display = show ? 'block' : 'none';
-      // Ternary operator: condition ? valueIfTrue : valueIfFalse
-      // If show is true, display 'block', else display 'none'
-    }
-    
-    /**
-     * Checks if user is already logged in (name exists in localStorage)
-     * Runs automatically when page loads to restore previous login state
-     */
-    function checkLogin() {
-      const name = localStorage.getItem('flight_username'); // Try to get saved username
-      // localStorage.getItem() returns null if key doesn't exist
-      
-      if (name) { // If name exists (user has logged in before)
-        showGreeting(name); // Display "Welcome back, [Name]!" message
-        showLogin(false); // Hide the login form
-      } else { // If no name found (first time visitor or cleared storage)
-        showGreeting(''); // Clear any existing greeting
-        showLogin(true); // Show the login form
-      }
-    }
-    
-    /**
-     * DOM Content Loaded Event Listener
-     * Fires when initial HTML document has been completely loaded and parsed
-     * Perfect time to set up event listeners and initialize functionality
-     */
-    document.addEventListener('DOMContentLoaded', function() {
-      // This ensures all HTML elements exist before JavaScript tries to access them
-      // Prevents errors from trying to get elements that haven't loaded yet
-      
-      checkLogin(); // Check and restore login state on page load
-      
-      // -----------------------------------------------------------------------
-      // LOGIN FORM SUBMISSION HANDLER
-      // Intercepts form submission to save name without page reload
-      // -----------------------------------------------------------------------
-      const loginForm = document.getElementById('login-form');
-      if (loginForm) { // Safety check - only proceed if form exists
-        loginForm.addEventListener('submit', function(e) {
-          // 'submit' event fires when form is submitted (button click or Enter key)
-          
-          e.preventDefault(); // Prevent default form submission (which would reload page)
-          // e is the event object, preventDefault() stops default browser behavior
-          
-          const usernameInput = document.getElementById('username');
-          const name = usernameInput.value.trim(); // Get input value and remove leading/trailing spaces
-          // .trim() converts "  John  " to "John"
-          
-          if (name) { // If name is not empty string
-            localStorage.setItem('flight_username', name); // Save name to browser storage
-            // localStorage.setItem(key, value): Stores data that persists across sessions
-            // Data remains even after closing browser
-            
-            showGreeting(name); // Display personalized greeting
-            showLogin(false); // Hide login form
-          }
-        });
-      }
-      
-      // -----------------------------------------------------------------------
-      // NAVIGATION SMOOTH SCROLL SETUP
-      // Makes clicking nav links scroll smoothly instead of jumping instantly
-      // -----------------------------------------------------------------------
-      document.querySelectorAll('.nav-link').forEach(link => {
-        // querySelectorAll() returns all elements matching the selector
-        // forEach() loops through each element
-        
-        link.addEventListener('click', function(e) {
-          e.preventDefault(); // Prevent default anchor behavior (instant jump)
-          
-          const href = this.getAttribute('href'); // Get href attribute value (e.g., "#search-section")
-          // 'this' refers to the clicked link element
-          const target = document.querySelector(href); // Find element with matching ID
-          
-          if (target) { // If target section exists
-            target.scrollIntoView({ 
-              behavior: 'smooth', // Smooth animated scroll instead of instant jump
-              block: 'start' // Align element to top of viewport
-            });
-            
-            // UPDATE ACTIVE NAV LINK STYLING
-            document.querySelectorAll('.nav-link').forEach(l => {
-              l.classList.remove('active'); // Remove 'active' class from all links
-            });
-            this.classList.add('active'); // Add 'active' class to clicked link
-            // CSS highlights the active link differently
-          }
-        });
-      });
 
-      // -----------------------------------------------------------------------
-      // INITIALIZE CLEAR BUTTONS
-      // Set up functionality for X buttons on input fields
-      // -----------------------------------------------------------------------
-      setupClearButtons(); // Call function defined below
-    });
-
-    // =========================================================================
-    // SECTION 2: CLEAR BUTTON FUNCTIONALITY
-    // X buttons that appear in input fields to quickly clear their content
-    // Buttons show when field has value, hide when empty
-    // =========================================================================
-    
-    /**
-     * Sets up clear buttons for all text inputs and date inputs
-     * Adds event listeners to show/hide buttons and clear field values
-     */
-    function setupClearButtons() {
-      // -----------------------------------------------------------------------
-      // TEXT INPUTS: Origin and destination autocomplete fields
-      // -----------------------------------------------------------------------
-      const textInputs = ['origin', 'destination']; // Array of input IDs to process
-      textInputs.forEach(inputId => {
-        // Loop through each text input ID
-        
-        const input = document.getElementById(inputId); // Get input element
-        const clearBtn = input.nextElementSibling; // Get next sibling element (clear button)
-        // nextElementSibling: Gets the immediately following element in HTML structure
-        
-        // SHOW/HIDE CLEAR BUTTON BASED ON INPUT VALUE
-        input.addEventListener('input', function() {
-          // 'input' event fires every time user types, pastes, or deletes
-          // Fires more frequently than 'change' event (which fires on blur)
-          
-          if (this.value.trim()) { // If input has text (after removing whitespace)
-            clearBtn.style.display = 'flex'; // Show clear button
-            // 'flex' because button uses flexbox for centering icon
-          } else { // If input is empty
-            clearBtn.style.display = 'none'; // Hide clear button
-          }
-        });
-        
-        // CLEAR BUTTON CLICK HANDLER
-        clearBtn.addEventListener('click', function() {
-          input.value = ''; // Clear input value (empty string)
-          delete input.dataset.code; // Remove stored airport code
-          // dataset.code is where autocomplete stores the selected airport code
-          // Example: When "London (LON)" selected, dataset.code = "LON"
-          delete input.dataset.type; // Remove stored location type
-          // Type is 'airport', 'city', or 'country'
-          clearBtn.style.display = 'none'; // Hide clear button
-          input.focus(); // Return focus to input field for user convenience
-          // Allows user to immediately start typing again
-        });
-      });
-
-      // -----------------------------------------------------------------------
-      // DATE INPUTS: Departure and return date fields
-      // -----------------------------------------------------------------------
-      const dateInputs = ['depart-date', 'return-date']; // Array of date input IDs
-      dateInputs.forEach(inputId => {
-        const input = document.getElementById(inputId);
-        const wrapper = input.parentElement; // Get parent div (date-input-wrapper)
-        // parentElement: Gets the immediate parent element
-        const clearBtn = wrapper.querySelector('.clear-button'); // Find clear button within wrapper
-        // querySelector: Finds first element matching CSS selector within wrapper
-        
-        // SHOW/HIDE CLEAR BUTTON BASED ON DATE VALUE
-        input.addEventListener('input', function() {
-          if (this.value) { // If date is selected (value exists and is not empty)
-            clearBtn.style.display = 'flex'; // Show clear button
-          } else { // If no date selected
-            clearBtn.style.display = 'none'; // Hide clear button
-          }
-        });
-        
-        // CLEAR BUTTON CLICK HANDLER
-        clearBtn.addEventListener('click', function() {
-          input.value = ''; // Clear date value (empty string)
-          // For date inputs, empty string removes the selected date
-          clearBtn.style.display = 'none'; // Hide button
-          input.focus(); // Focus input (opens date picker on some browsers)
-        });
-      });
-    }
-    
-    // =========================================================================
-    // SECTION 3: AUTOCOMPLETE FUNCTIONALITY
-    // Provides airport/city suggestions as user types in From/To fields
-    // Uses Travelpayouts autocomplete API to fetch suggestions
-    // =========================================================================
-    
-    /**
-     * Sets up autocomplete functionality for a text input field
-     * Fetches suggestions from API as user types (after 2+ characters)
-     * Displays dropdown with clickable suggestions
-     * @param {string} inputId - ID of the input element to add autocomplete to
-     * @param {string} suggestionsId - ID of container to display suggestions in
-     */
-    function setupAutocomplete(inputId, suggestionsId) {
-      const input = document.getElementById(inputId); // Get input element
-      const suggestionsDiv = document.getElementById(suggestionsId); // Get suggestions container
-      let currentList = null; // Track current suggestions list for cleanup
-      // 'let' allows reassignment, 'const' does not
-      
-      // INPUT EVENT LISTENER: Fires when user types
-      input.addEventListener('input', function() {
-        const term = input.value.trim(); // Get input value, remove whitespace
-        
-        // MINIMUM CHARACTER CHECK
-        if (term.length < 2) { // If less than 2 characters typed
-          if (currentList) currentList.remove(); // Remove any existing suggestions
-          return; // Exit function early (don't search with 1 character)
-          // return stops function execution immediately
-        }
-        
-        // SHOW LOADING MESSAGE IMMEDIATELY
-        // Provides instant feedback while waiting for API response
-        if (currentList) currentList.remove(); // Remove previous suggestions first
-        const loadingList = document.createElement('ul'); // Create new <ul> element in memory
-        loadingList.className = 'suggestions-list'; // Add CSS class for styling
-        loadingList.innerHTML = '<li class="autocomplete-loading">Searching...</li>'; // Set inner HTML
-        suggestionsDiv.appendChild(loadingList); // Add to page (makes it visible)
-        currentList = loadingList; // Store reference for later removal
-        
-        // FETCH SUGGESTIONS FROM TRAVELPAYOUTS AUTOCOMPLETE API
-        // This is a direct browser call (not going through backend)
-        // API URL format: /places2?term=TEXT&locale=en&types[]=city&types[]=airport
-        const apiUrl = `https://autocomplete.travelpayouts.com/places2?term=${encodeURIComponent(term)}&locale=en&types[]=country&types[]=city&types[]=airport`;
-        // encodeURIComponent(): Safely encodes text for URL (handles spaces, special characters)
-        // Example: "New York" becomes "New%20York"
-        // &locale=en: English language results
-        // &types[]=...: Request countries, cities, and airports
-        
-        fetch(apiUrl) // Make HTTP GET request to API
-          // fetch() returns a Promise - represents eventual completion of async operation
-          
-          .then(r => r.json()) // Parse response body as JSON
-          // .then() runs when fetch completes successfully
-          // Arrow function: (parameter) => expression
-          // r.json() returns Promise that resolves to parsed JSON
-          
-          .then(data => {
-            // This runs when JSON parsing completes
-            // 'data' is array of location objects from API
-            // Each object has: name, code, type, city_name, country_name, etc.
-            
-            if (currentList) currentList.remove(); // Remove loading message
-            
-            // CHECK IF NO RESULTS FOUND
-            if (!data || data.length === 0) {
-              // If data is null/undefined or empty array
-              const noResultsList = document.createElement('ul');
-              noResultsList.className = 'suggestions-list';
-              noResultsList.innerHTML = '<li class="autocomplete-loading">No results found</li>';
-              suggestionsDiv.appendChild(noResultsList);
-              currentList = noResultsList;
-              return; // Exit function early
-            }
-            
-            // CREATE SUGGESTIONS LIST
-            const ul = document.createElement('ul'); // Create <ul> element
-            ul.className = 'suggestions-list'; // Add CSS class
-            
-            // LOOP THROUGH EACH LOCATION RESULT
-            data.forEach(item => {
-              // forEach: Executes function for each array element
-              // item has properties: name, code, type, city_name, country_name
-              
-              // BUILD DISPLAY LABEL FOR SUGGESTION
-              let label = item.name; // Start with location name
-              if (item.type === 'airport') {
-                // Airport: Show airport name, code, city, and country
-                // Example: "Heathrow (LHR) - London, United Kingdom"
-                label += ` (${item.code}) - ${item.city_name}, ${item.country_name}`;
-              } else if (item.type === 'city') {
-                // City: Show city name, code, and country
-                // Example: "London (LON) - United Kingdom"
-                label += ` (${item.code}) - ${item.country_name}`;
-              } else if (item.type === 'country') {
-                // Country: Show country name and code
-                // Example: "United Kingdom (GB)"
-                label += ` (${item.code})`;
-              }
-              
-              // CREATE LIST ITEM ELEMENT
-              const li = document.createElement('li'); // Create <li> element
-              li.textContent = label; // Set text content (automatically escapes HTML)
-              
-              // STORE DATA IN ELEMENT'S DATASET
-              li.dataset.code = item.code; // Store airport/city code (e.g., "LON")
-              // dataset.code creates a data-code="value" HTML attribute
-              // Accessible via element.dataset.code in JavaScript
-              li.dataset.name = item.name; // Store location name
-              li.dataset.type = item.type; // Store type (airport/city/country)
-              
-              // CLICK HANDLER: User selects this suggestion
-              li.addEventListener('mousedown', function(e) {
-                // Using mousedown instead of click because it fires before blur
-                // This prevents dropdown from closing before click registers
-                
-                input.value = label; // Set input field to selected label
-                input.dataset.code = item.code; // Store code on input for form submission
-                // This code is used later when searching for flights
-                input.dataset.type = item.type; // Store type on input
-                ul.remove(); // Remove suggestions dropdown
-              });
-              
-              ul.appendChild(li); // Add list item to unordered list
-            });
-            
-            if (data.length > 0) {
-              suggestionsDiv.appendChild(ul); // Add list to page (makes it visible)
-            }
-            currentList = ul; // Store reference for later removal
-          })
-          .catch(error => {
-            // CATCH BLOCK: Runs if any error occurs in try chain
-            // Examples: Network error, API down, CORS issue, parsing error
-            console.error('Autocomplete error:', error); // Log error to browser console
-            // console.error() displays in red in DevTools console
-            
-            if (currentList) currentList.remove(); // Remove loading message
-            const errorList = document.createElement('ul');
-            errorList.className = 'suggestions-list';
-            errorList.innerHTML = '<li class="autocomplete-loading">Error loading results</li>';
-            suggestionsDiv.appendChild(errorList);
-            currentList = errorList;
-          });
-      });
-      
-      // BLUR EVENT LISTENER: Input loses focus (user clicks elsewhere)
-      input.addEventListener('blur', function() {
-        setTimeout(() => { 
-          // setTimeout delays execution by specified milliseconds
-          if (currentList) currentList.remove(); // Remove suggestions dropdown
-        }, 200); // 200ms delay
-        // Delay is necessary to allow click event on suggestion to fire first
-        // Without delay, blur would remove dropdown before click registers
-        // 200ms is enough time for click to complete but fast enough to feel instant
-      });
-    }
-    
-    // INITIALIZE AUTOCOMPLETE FOR BOTH INPUTS
-    setupAutocomplete('origin', 'origin-suggestions'); // Setup for "From" field
-    setupAutocomplete('destination', 'destination-suggestions'); // Setup for "To" field
-    
-    // =========================================================================
-    // SECTION 4: FLIGHT SEARCH FORM SUBMISSION
-    // Main search functionality - validates input, calls API, displays results
-    // Most complex part of the application
-    // =========================================================================
-    
-    document.getElementById('flight-form').addEventListener('submit', function(e) {
-      // 'submit' event fires when:
-      // 1. User clicks search button
-      // 2. User presses Enter in any form field
-      // 3. JavaScript calls form.submit()
-      
-      e.preventDefault(); // Prevent default form submission (page reload)
-      // Critical for single-page app behavior
-      
-      // -----------------------------------------------------------------------
-      // GET FORM VALUES FROM INPUT FIELDS
-      // -----------------------------------------------------------------------
-      const originInput = document.getElementById('origin');
-      const destInput = document.getElementById('destination');
-      const departDate = document.getElementById('depart-date').value; // YYYY-MM-DD string or empty
-      const returnDate = document.getElementById('return-date').value; // YYYY-MM-DD string or empty
-      const warningContainer = document.getElementById('warning-messages');
-      
-      // Get stored airport codes from input datasets (set by autocomplete)
-      const originCode = originInput.dataset.code; // e.g., "LON"
-      const destCode = destInput.dataset.code; // e.g., "NYC"
-      // These codes are set when user clicks autocomplete suggestion
-      
-      // -----------------------------------------------------------------------
-      // CLEAR PREVIOUS WARNINGS
-      // Important to remove old warnings before showing new ones
-      // -----------------------------------------------------------------------
-      warningContainer.innerHTML = ''; // Remove all child elements
-      warningContainer.style.display = 'none'; // Hide container
-      
-      // -----------------------------------------------------------------------
-      // VALIDATION: Check that user selected airports from autocomplete
-      // -----------------------------------------------------------------------
-      if (!originCode || !destCode) {
-        // If either code is undefined/null (user typed but didn't select)
-        alert('Please select valid airports or cities from the suggestions.');
-        // alert() displays browser popup (blocks further execution until dismissed)
-        return; // Exit function early (don't proceed with search)
-      }
-      
-      // -----------------------------------------------------------------------
-      // DATE VALIDATION: Check for past dates and invalid date order
-      // -----------------------------------------------------------------------
-      const warnings = []; // Array to collect warning message objects
-      const today = new Date(); // Current date and time
-      today.setHours(0, 0, 0, 0); // Set time to midnight (00:00:00.000)
-      // This allows date-only comparison (ignores hours, minutes, seconds)
-      // Otherwise comparing dates would include time and fail
-      
-      // CHECK DEPARTURE DATE
-      if (departDate) { // If departure date was selected
-        const departDateObj = new Date(departDate); // Convert string to Date object
-        // new Date("2025-02-15") creates Date object for that day at midnight
-        
-        if (departDateObj < today) { // If departure is before today
-          warnings.push({ // Add warning object to array
-            type: 'warning', // Yellow/orange warning (doesn't block search)
-            icon: '⚠️', // Warning emoji symbol
-            message: 'Departure date is in the past. Flights shown may no longer be available.'
-          });
-        }
-      }
-      
-      // CHECK RETURN DATE
-      if (returnDate) { // If return date was selected
-        const returnDateObj = new Date(returnDate);
-        
-        // Check if return date is in the past
-        if (returnDateObj < today) {
-          warnings.push({
-            type: 'warning',
-            icon: '⚠️',
-            message: 'Return date is in the past. Flights shown may no longer be available.'
-          });
-        }
-        
-        // Check if return is before departure (logically impossible)
-        if (departDate) { // If both dates are set
-          const departDateObj = new Date(departDate);
-          if (returnDateObj < departDateObj) {
-            warnings.push({
-              type: 'error', // Red error (blocks search execution)
-              icon: '❌', // Cross mark emoji
-              message: 'Return date cannot be before departure date. Please adjust your dates.'
-            });
-            return; // STOP - don't search with invalid date order
-            // Return here prevents API call with invalid dates
-          }
-        }
-      }
-      
-      // -----------------------------------------------------------------------
-      // DISPLAY WARNINGS TO USER
-      // -----------------------------------------------------------------------
-      if (warnings.length > 0) { // If any warnings were added to array
-        warningContainer.innerHTML = warnings.map(w => `
-          <div class="warning-message ${w.type}">
-            <span class="warning-icon">${w.icon}</span>
-            <span class="warning-text">${w.message}</span>
-          </div>
-        `).join('');
-        // .map(): Transforms each array element (warning object) into HTML string
-        // Template literal (backticks): Allows embedding variables with ${}
-        // .join(''): Combines all HTML strings into one with no separator
-        // Result: HTML string with all warning divs concatenated
-        
-        warningContainer.style.display = 'block'; // Make warnings visible
-      }
-      
-      // -----------------------------------------------------------------------
-      // PREPARE FOR SEARCH: Get result containers and loading indicator
-      // -----------------------------------------------------------------------
-      const flightsList = document.getElementById('flights-list');
-      const returnFlightsList = document.getElementById('return-flights-list');
-      const loadingIndicator = document.getElementById('loading-indicator');
-      
-      flightsList.innerHTML = ''; // Clear previous departure flight results
-      returnFlightsList.innerHTML = ''; // Clear previous return flight results
-      // Important to clear old results before showing new loading state
-      
-      // SHOW LOADING INDICATOR
-      loadingIndicator.setAttribute('aria-hidden', 'false'); // Make accessible to screen readers
-      // Screen readers will announce "Loading flights"
-      loadingIndicator.style.display = 'flex'; // Make visually visible
-      // 'flex' for flexbox centering of spinner
-      
-      /**
-       * Hides the loading indicator (spinner)
-       * Called when all API requests complete (success or error)
-       */
-      function hideLoading() {
-        loadingIndicator.setAttribute('aria-hidden', 'true'); // Hide from screen readers
-        loadingIndicator.style.display = 'none'; // Hide visually
-      }
-      
-      // -----------------------------------------------------------------------
-      // HELPER FUNCTION: Format date for display
-      // -----------------------------------------------------------------------
-      /**
-       * Formats date string from API into user-friendly format
-       * @param {string} dt - Date string from API (YYYY-MM-DD)
-       * @returns {string} Formatted date (DD/MM/YYYY) or "N/A" if null
-       */
-      function formatDate(dt) {
-        return dt ? new Date(dt).toLocaleDateString('en-GB') : 'N/A';
-        // Ternary operator: condition ? valueIfTrue : valueIfFalse
-        // toLocaleDateString('en-GB'): British format (DD/MM/YYYY)
-        // Example: "2025-02-15" becomes "15/02/2025"
-        // 'en-GB' is British English locale (uses day/month/year)
-        // If dt is null/undefined, returns 'N/A'
-      }
-      
-      // -----------------------------------------------------------------------
-      // HELPER FUNCTION: Create and add flight card to results
-      // -----------------------------------------------------------------------
-      /**
-       * Creates HTML for a flight card and adds it to the results list
-       * @param {string} type - "Departure" or "Return" (for header label)
-       * @param {object} flight - Flight data object from API
-       * @param {HTMLElement} listElem - <ul> element to append card to
-       */
-      function addFlightInfo(type, flight, listElem) {
-        const li = document.createElement('li'); // Create new <li> element
-        li.className = 'flight-result-card'; // Add CSS class for styling
-        
-        // BUILD HTML FOR FLIGHT CARD using template literal
-        li.innerHTML = `
-          <div class="flight-header"><strong>${type}</strong></div>
-          <div class="flight-details">
-            <div class="flight-route"><strong>From:</strong> ${flight.origin} <strong>To:</strong> ${flight.destination}</div>
-            <div class="flight-date"><strong>Departure:</strong> ${formatDate(flight.departure_at)}</div>
-            <div class="flight-price"><strong>Price:</strong> ${flight.value} ${flight.currency}</div>
-            <div class="flight-airline"><strong>Airline:</strong> ${flight.airline || 'N/A'}</div>
-            <div class="flight-number"><strong>Flight #:</strong> ${flight.flight_number || 'N/A'}</div>
-            <div class="flight-booking"><a href="404.html" class="book-button">Book Now</a></div>
-          </div>
-        `;
-        // flight.airline || 'N/A': If airline is null/undefined/empty, show 'N/A'
-        // Logical OR operator: returns first truthy value or last value
-        // Template literal allows multi-line strings and ${} interpolation
-        // ${variable}: Inserts variable value into string
-        
-        listElem.appendChild(li); // Add card to list (makes it visible on page)
-      }
-      
-      // -----------------------------------------------------------------------
-      // CORE FUNCTION: Fetch flights from backend API
-      // -----------------------------------------------------------------------
-      /**
-       * Fetches flight data from backend API and displays results
-       * Handles loading state, errors, and success scenarios
-       * @param {string} from - Origin airport code (e.g., "LON")
-       * @param {string} to - Destination airport code (e.g., "NYC")
-       * @param {string} date - Departure date (YYYY-MM-DD format)
-       * @param {string} typeLabel - "Departure" or "Return" for display
-       * @param {HTMLElement} listElem - <ul> element to display results in
-       * @param {boolean} isLastRequest - True if this is the final API call
-       */
-      function fetchFlights(from, to, date, typeLabel, listElem, isLastRequest) {
-        // BUILD API URL with query parameters
-        const url = `https://flightfinder-website.onrender.com/api/travelpayouts/flights?origin=${from}&destination=${to}&departure_at=${date}`;
-        // This URL points to our backend server (not directly to Travelpayouts)
-        // Backend acts as proxy to avoid CORS issues
-        // Query parameters: ?key=value&key2=value2
-        
-        // MAKE HTTP GET REQUEST TO BACKEND API
-        fetch(url)
-          // fetch() returns Promise that resolves to Response object
-          
-          .then(async r => {
-            // First .then(): Handle response status
-            // async keyword allows use of await inside function
-            
-            if (!r.ok) { // If HTTP status is not 200-299 (error status)
-              const text = await r.text(); // Get error text from response body
-              // await pauses execution until r.text() Promise resolves
-              throw new Error(`HTTP ${r.status}: ${text}`);
-              // throw creates error and jumps to .catch() block
-              // Error includes status code and error text
-            }
-            return r.json(); // Parse response body as JSON
-            // Returns Promise that resolves to parsed data
-          })
-          
-          .then(data => {
-            // Second .then(): Handle successful response with flight data
-            // data contains flight information from API
-            
-            // CHECK FOR API ERROR MESSAGE
-            if (data.error) {
-              // Backend API returns {error: "message"} format for errors
-              listElem.innerHTML = `<li class="error-message">API Error: ${data.error}</li>`;
-              console.error('API Error:', data); // Log full error object to console
-              if (isLastRequest) hideLoading(); // Hide spinner if this was last request
-              return; // Exit function early (don't process flight data)
-            }
-            
-            // CHECK FOR FLIGHT DATA
-            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-              // data.data: Flight array (nested because API wraps it in data property)
-              // Array.isArray(): Checks if value is actually an array
-              // .length > 0: Checks array has at least one flight
-              
-              // SORT FLIGHTS BY DATE PROXIMITY
-              // Shows flights closest to requested date first
-              const sorted = data.data.slice().sort((a, b) => {
-                // .slice(): Creates copy of array (don't mutate original)
-                // .sort(): Sorts array in place using compare function
-                // Compare function: (a, b) => number
-                //   negative: a comes before b
-                //   zero: order unchanged
-                //   positive: b comes before a
-                
-                // Calculate how far each flight's date is from requested date
-                const dA = Math.abs(new Date(a.departure_at) - new Date(date));
-                const dB = Math.abs(new Date(b.departure_at) - new Date(date));
-                // Math.abs(): Absolute value (distance, always positive)
-                // Date subtraction: Returns milliseconds difference
-                // Example: Feb 15 - Feb 10 = 432000000 milliseconds (5 days)
-                
-                return dA - dB; // Sort ascending (smallest difference first)
-                // If dA < dB: negative, so a comes first (closer to requested date)
-                // If dA > dB: positive, so b comes first
-                // Result: Flights sorted by proximity to requested date
-              });
-              
-              // DISPLAY FIRST 5 FLIGHTS
-              sorted.slice(0, 5).forEach(flight => {
-                // .slice(0, 5): Get first 5 elements (array indices 0-4)
-                // .forEach(): Loop through each and execute function
-                addFlightInfo(typeLabel, flight, listElem); // Add flight card to page
-              });
-              // Limiting to 5 flights prevents overwhelming user with results
-              // Also reduces page load and rendering time
-              
-            } else {
-              // NO FLIGHTS FOUND IN API RESPONSE
-              listElem.innerHTML = `<li class="no-results">No ${typeLabel.toLowerCase()} flights found.</li>`;
-              // .toLowerCase(): Convert "Departure" to "departure" for better grammar
-              console.warn('No flights found:', data); // Log to console for debugging
-              // console.warn(): Yellow warning in DevTools console
-            }
-            
-            // HIDE LOADING INDICATOR IF THIS IS LAST REQUEST
-            if (isLastRequest) {
-              // isLastRequest: True for one-way (only departure) or for return flight
-              hideLoading(); // Hide spinner
-              
-              // SMOOTH SCROLL TO RESULTS
-              setTimeout(() => {
-                // setTimeout(): Delay execution by milliseconds
-                flightsList.scrollIntoView({ 
-                  behavior: 'smooth', // Animated scroll
-                  block: 'start' // Align to top of viewport
-                });
-              }, 100); // 100ms delay gives results time to render first
-              // Scrolling too soon might scroll before cards are added to DOM
-            }
-          })
-          
-          .catch(err => {
-            // CATCH BLOCK: Handles any error in the entire chain
-            // Examples: Network error, JSON parse error, thrown Error objects
-            
-            listElem.innerHTML = `<li class="error-message">Error fetching ${typeLabel.toLowerCase()} flights.<br><span style='color:#dc3545;'>${err.message}</span></li>`;
-            // Display user-friendly error message
-            // err.message: Error message text
-            // <br>: Line break for readability
-            // inline style for red color (CSS color code #dc3545)
-            
-            console.error('Fetch error:', err); // Log full error to console for debugging
-            if (isLastRequest) hideLoading(); // Hide spinner even on error
-            // Important: Always hide loading state, even when request fails
-          });
-      }
-      
-      // -----------------------------------------------------------------------
-      // EXECUTE SEARCH: Call API for departure and optionally return flights
-      // -----------------------------------------------------------------------
-      
-      // DETERMINE IF USER SELECTED RETURN DATE (round-trip vs one-way)
-      const hasReturnDate = !!returnDate;
-      // !! (double NOT): Converts value to boolean
-      // !!"" = false (empty string is falsy)
-      // !!"2025-02-15" = true (non-empty string is truthy)
-      // Result: true if return date selected, false if not
-      
-      // FETCH DEPARTURE/OUTBOUND FLIGHTS
-      fetchFlights(
-        originCode,      // From: Origin airport code
-        destCode,        // To: Destination airport code  
-        departDate,      // Date: Departure date
-        'Departure',     // Label: "Departure" for display
-        flightsList,     // List: Where to display results
-        !hasReturnDate   // isLastRequest: true if one-way (no return flight to fetch)
-      );
-      // If one-way (!hasReturnDate = true), this is last request, so hide loading after
-      // If round-trip (!hasReturnDate = false), don't hide loading yet (return flight coming)
-      
-      // PREPARE RETURN FLIGHTS SECTION
-      returnFlightsList.innerHTML = '<li class="section-header"><strong>Return Flights</strong></li>';
-      // Add section header regardless of whether return flights will be fetched
-      // Provides clear separation between departure and return sections
-      
-      if (hasReturnDate) {
-        // ROUND-TRIP: Fetch return flights
-        fetchFlights(
-          destCode,        // From: Destination becomes origin for return
-          originCode,      // To: Origin becomes destination for return
-          returnDate,      // Date: Return date
-          'Return',        // Label: "Return" for display
-          returnFlightsList, // List: Separate list for return flights
-          true             // isLastRequest: Always true (this is final request)
-        );
-        // Origin and destination are swapped for return flight
-        // Always last request in round-trip scenario
-        
-      } else {
-        // ONE-WAY: Show message that no return date was selected
-        returnFlightsList.innerHTML += '<li class="info-message">No return date selected.</li>';
-        // += appends to existing innerHTML (adds to section header)
-        // Informs user this is intentionally empty (not an error)
-      }
-    });
-    // END OF FORM SUBMISSION HANDLER
-    
-  </script>
-  <!-- END OF JAVASCRIPT -->
+  <script src="flightfinder.js"></script>
+  <!-- Loads external JavaScript file -->
+  <!-- Placed at END of body ensures all HTML elements exist before JS runs -->
   
 </body>
 </html>
-
