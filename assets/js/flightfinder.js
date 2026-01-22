@@ -775,6 +775,3 @@ document.getElementById('flight-form').addEventListener('submit', function(e) {
     // Informs user this is intentionally empty (not an error)
   }
 });
-// END OF FORM SUBMISSION HANDLER
-
-/*
