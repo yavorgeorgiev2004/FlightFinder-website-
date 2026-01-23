@@ -8,7 +8,7 @@
 // =============================================================================
 
 // Travelpayouts API authentication key (public key, safe in frontend)
-// const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
+
 
 // =============================================================================
 // SECTION 2: LOGIN SYSTEM
