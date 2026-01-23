@@ -1241,6 +1241,7 @@ document.getElementById('flight-form').addEventListener('submit', function(e) {
 ---
 
 ## 📸 Screenshots
+![Website-screenshots](assets/screenshots/404page.png)
 ![Website-screenshots](assets/screenshots/loading-search.png)
 ![Website-screenshots](assets/screenshots/homepage.png)
 ![Website-screenshots](assets/screenshots/homepage(2).png)
