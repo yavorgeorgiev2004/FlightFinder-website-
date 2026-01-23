@@ -4,7 +4,7 @@
 // =============================================================================
 
 // Travelpayouts API authentication key (public key, safe in frontend)
-const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
+// const API_KEY = 'd2e27a08557382081d80ed4268fbb552';
 
 // =============================================================================
 // SECTION 2: LOGIN SYSTEM
@@ -574,7 +574,7 @@ document.getElementById('flight-form').addEventListener('submit', function(e) {
         <div class="flight-price"><strong>Price:</strong> ${flight.value} ${flight.currency}</div>
         <div class="flight-airline"><strong>Airline:</strong> ${flight.airline || 'N/A'}</div>
         <div class="flight-number"><strong>Flight #:</strong> ${flight.flight_number || 'N/A'}</div>
-        <div class="flight-booking"><a href="404.html" class="book-button">Book Now</a></div>
+        <div class="flight-booking"><a href="../html/404.html" class="book-button">Book Now</a></div>
       </div>
     `;
     // flight.airline || 'N/A': If airline is null/undefined/empty, show 'N/A'
