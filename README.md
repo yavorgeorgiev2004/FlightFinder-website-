@@ -665,13 +665,80 @@ GitHub Pages   - Frontend hosting (alternative)
 
 
 ## 📚 Code Attribution
+## 📚 Code Attribution and Resources
+
+This project uses various web technologies and APIs. Below are the sources and resources for key functionality:
+
+### Backend Server (server.js)
+
+The backend proxy server is built with Express.js and uses the following resources:
+
+- **Express.js** - Web framework for Node.js
+  - Documentation: https://expressjs.com/
+  - Setup guide: https://expressjs.com/en/starter/hello-world.html
+  - Routing: https://expressjs.com/en/guide/routing.html
+
+- **CORS Middleware** - Enables Cross-Origin Resource Sharing
+  - Documentation: https://expressjs.com/en/resources/middleware/cors.html
+  - Tutorial: https://serpapi.com/blog/adding-a-node-js-backend-to-handle-api-interactions-for-a-frontend-application/
+
+- **node-fetch** - Fetch API for Node.js
+  - Documentation: https://github.com/node-fetch/node-fetch
+  - MDN Fetch API: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+
+### Frontend JavaScript (flightfinder.js)
+
+#### LocalStorage for Login System
+- **Web Storage API**
+  - localStorage: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+  - Using Web Storage: https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API
+  - Client-side storage guide: https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Client-side_APIs/Client-side_storage
+
+#### Page Redirection with Delay
+- **setTimeout() Method**
+  - MDN Documentation: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+  - Tutorial: https://www.encodedna.com/javascript/redirect-page-after-a-delay-using-javascript.htm
+
+- **window.location Navigation**
+  - Location.href: https://developer.mozilla.org/en-US/docs/Web/API/Location/href
+  - Location interface: https://developer.mozilla.org/en-US/docs/Web/API/Location
+
+#### Fetch API for HTTP Requests
+- **Fetch API**
+  - Using Fetch: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+  - Fetch overview: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API
+  
+- **Promises and Async/Await**
+  - Using Promises: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+  - async function: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function
+
+#### DOM Manipulation
+- **DOMContentLoaded Event**
+  - Documentation: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+
+- **Event Handling**
+  - addEventListener: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+  - preventDefault: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
+
+### Dependencies
+
+All npm packages used in this project:
+
+- **express** (^4.18.2) - https://www.npmjs.com/package/express
+- **node-fetch** (^2.6.1) - https://www.npmjs.com/package/node-fetch
+- **cors** (^2.8.5) - https://www.npmjs.com/package/cors
+
+### External APIs
+
+- **Travelpayouts API** - Flight price data
+  - Documentation: https://travelpayouts.github.io/slate/#flight-data-access-api-v1
 
 ### External Sources
 
 This project uses code from various sources, all properly attributed below and in code comments.
 
 #### 1. **Travelpayouts API Integration**
-- **Source**: [Travelpayouts API Documentation](https://support.travelpayouts.com/hc/en-us/articles/203956163-Travel-API)
+- **Source**: [Travelpayouts API Documentation](https://travelpayouts.github.io/slate/#flight-data-access-api-v1)
 - **Purpose**: Flight search data and autocomplete functionality
 - **License**: Free tier with attribution required
 - **Location**: `flightfinder.js` (lines 295-350, 605-650)
