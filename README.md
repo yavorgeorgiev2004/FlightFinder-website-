@@ -16,8 +16,10 @@
   - [Testing Principles](#testing-principles)
   - [Test Procedures](#test-procedures)
   - [Test Results](#test-results)
-- [Known Console Warnings](#-known-console-warnings)
+  - Known Console Warnings
+- [Known Console Warnings](#known-console-warnings)
 - [Validation](#-validation)
+- [Known Console Warnings](#-known-console-warnings)
 - [Error Handling](#error-handling)
 - [Screenshots](#-screenshots)
 - [Known Issues](#-known-issues)
