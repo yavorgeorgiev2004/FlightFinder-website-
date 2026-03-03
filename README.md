@@ -16,7 +16,7 @@
   - [Testing Principles](#testing-principles)
   - [Test Procedures](#test-procedures)
   - [Test Results](#test-results)
-- [Known Error Warnings](#-known-error-warnings)
+- [Known Console Warnings](#-known-console-warnings)
 - [Validation](#-validation)
 - [Error Handling](#error-handling)
 - [Screenshots](#-screenshots)
