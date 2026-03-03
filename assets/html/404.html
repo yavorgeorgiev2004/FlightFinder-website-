@@ -8,6 +8,22 @@
     <script>
         // Single Page Apps for GitHub Pages
         // Modified to redirect to search section
+               // Redirects user to index.html#search-section after 3 second countdown
+        // 
+        // Techniques used:
+        // - setTimeout/setInterval for timed redirect
+        //   Source: https://developer.mozilla.org/en-US/docs/Web/API/setTimeout
+        //   Tutorial: https://www.encodedna.com/javascript/redirect-page-after-a-delay-using-javascript.htm
+        // 
+        // - window.location.href for page navigation
+        //   Source: https://developer.mozilla.org/en-US/docs/Web/API/Location/href
+        // 
+        // - sessionStorage for storing redirect path
+        //   Source: https://developer.mozilla.org/en-US/docs/Web/API/Window/sessionStorage
+        // 
+        // - Immediately Invoked Function Expression (IIFE) pattern
+        //   Source: https://developer.mozilla.org/en-US/docs/Glossary/IIFE
+        // 
         
         (function() {
             var l = window.location;
