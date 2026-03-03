@@ -16,6 +16,7 @@
   - [Testing Principles](#testing-principles)
   - [Test Procedures](#test-procedures)
   - [Test Results](#test-results)
+- [Known Error Warnings](#-known-error-warnings)
 - [Validation](#-validation)
 - [Error Handling](#error-handling)
 - [Screenshots](#-screenshots)
@@ -1166,8 +1167,24 @@ Comprehensive testing was conducted across development and implementation stages
 - [x] Error pages working
 
 **Deployment Status**: ✅ All checks passed
+--
+ ## ⚠️ Known Console Warnings
 
+### PerformanceObserver Warning
 
+When inspecting the website in browser DevTools, you may see this warning:
+
+```
+chunk.Dqx2S46S.js:32 The PerformanceObserver does not support buffered flag with the entryTypes argument.
+```
+
+**What it is:** This warning originates from third-party tracking/analytics code automatically loaded by external API services (such as Travelpayouts or Stay22) when the application makes flight data requests. The warning occurs because the external service uses a deprecated browser API pattern.
+
+**Why it appears:** The third-party script uses the old `entryTypes` parameter with the `buffered` flag in the PerformanceObserver API. Modern browsers recommend using the `type` parameter instead. This is a deprecation warning, not an error—the code still functions correctly.
+
+**Can it be fixed?** No. The code causing this warning exists on external servers and is maintained by the third-party service provider (not this project). As the developer of this application, i have no control over or access to modify their code. Only the third-party service can update their implementation.
+
+**Impact:** None. This warning does not affect the website's functionality, performance, or user experience. It is purely informational and can be safely ignored.
 ---
 
 ## ✅ Validation
