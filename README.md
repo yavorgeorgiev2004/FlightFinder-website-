@@ -722,6 +722,7 @@ The backend proxy server is built with Express.js and uses the following resourc
   - preventDefault: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
 
 ### Dependencies
+.json 
 
 All npm packages used in this project:
 
@@ -734,102 +735,8 @@ All npm packages used in this project:
 - **Travelpayouts API** - Flight price data
   - Documentation: https://travelpayouts.github.io/slate/#flight-data-access-api-v1
 
-### External Sources
 
-This project uses code from various sources, all properly attributed below and in code comments.
 
-#### 1. **Travelpayouts API Integration**
-- **Source**: [Travelpayouts API Documentation](https://travelpayouts.github.io/slate/#flight-data-access-api-v1)
-- **Purpose**: Flight search data and autocomplete functionality
-- **License**: Free tier with attribution required
-- **Location**: `flightfinder.js` (lines 295-350, 605-650)
-- **Attribution in code**:
-  ```javascript
-  // FETCH SUGGESTIONS FROM TRAVELPAYOUTS AUTOCOMPLETE API
-  // API Documentation: https://support.travelpayouts.com/hc/en-us/articles/203956163
-  const apiUrl = `https://autocomplete.travelpayouts.com/places2?term=...`;
-  ```
-
-#### 2. **CORS Proxy Pattern**
-- **Source**: [Express.js CORS Documentation](https://expressjs.com/en/resources/middleware/cors.html)
-- **Purpose**: Backend proxy to bypass CORS restrictions
-- **License**: MIT License
-- **Location**: `server.js` (lines 1-48)
-- **Attribution in code**:
-  ```javascript
-  // CORS PROXY PATTERN
-  // Based on Express.js documentation: https://expressjs.com/en/resources/middleware/cors.html
-  app.use(cors()); // Enable CORS for all routes
-  ```
-
-#### 3. **Smooth Scroll Navigation**
-- **Source**: [MDN Web Docs - Element.scrollIntoView()](https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView)
-- **Purpose**: Smooth scrolling between page sections
-- **License**: CC0 (Public Domain)
-- **Location**: `flightfinder.js` (lines 118-150)
-- **Attribution in code**:
-  ```javascript
-  // SMOOTH SCROLL IMPLEMENTATION
-  // Based on MDN documentation: https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollIntoView
-  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  ```
-
-#### 4. **CSS Grid Layout**
-- **Source**: [CSS-Tricks Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
-- **Purpose**: Responsive grid layouts for form and cards
-- **License**: Educational use
-- **Location**: `flightfinder-theme.css` (lines 234-280, 450-520)
-- **Attribution in code**:
-  ```css
-  /* CSS GRID IMPLEMENTATION */
-  /* Based on CSS-Tricks guide: https://css-tricks.com/snippets/css/complete-guide-grid/ */
-  .search-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  }
-  ```
-
-#### 5. **Date Validation Logic**
-- **Source**: [Stack Overflow - JavaScript Date Comparison](https://stackoverflow.com/questions/492994/compare-two-dates-with-javascript)
-- **Purpose**: Compare dates and validate date ranges
-- **License**: CC BY-SA 4.0
-- **Location**: `flightfinder.js` (lines 514-551)
-- **Attribution in code**:
-  ```javascript
-  // DATE COMPARISON LOGIC
-  // Technique from Stack Overflow: https://stackoverflow.com/questions/492994/
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // Set to midnight for date-only comparison
-  ```
-
-#### 6. **Loading Spinner Animation**
-- **Source**: [Loading.io CSS Spinners](https://loading.io/css/)
-- **Purpose**: Animated loading indicator during API calls
-- **License**: CC0 (Public Domain)
-- **Location**: `flightfinder-theme.css` (lines 680-710)
-- **Attribution in code**:
-  ```css
-  /* LOADING SPINNER ANIMATION */
-  /* Based on Loading.io: https://loading.io/css/ */
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  ```
-
-### Original Code
-
-All code **NOT** listed above is **original work** created specifically for this project, including:
-- Complete HTML structure and semantic markup
-- Custom CSS styling (colors, spacing, typography)
-- Login system implementation with localStorage
-- Clear button functionality
-- Form validation and warning messages
-- Flight results display and sorting algorithm
-- Error handling and user feedback
-- Responsive design breakpoints
-- Accessibility features (ARIA, skip links)
-- 404 page with countdown timer
 
 ### Libraries and Dependencies
 
