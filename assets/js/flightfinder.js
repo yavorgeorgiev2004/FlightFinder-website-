@@ -1,6 +1,13 @@
 /* jshint esversion: 8 */
 /* jshint browser: true */
 /* jshint unused: true */
+// =============================================================================
+// CODE ATTRIBUTION - attribution also added before code on lines 55, 95, 76, 107, 634
+// =============================================================================
+// localStorage API: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
+// Fetch API: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+// DOMContentLoaded: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
+// Event.preventDefault(): https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
 
 // =============================================================================
 // SECTION 1: CONFIGURATION
@@ -43,6 +50,9 @@ function showLogin(show) {
  * Runs automatically when page loads to restore previous login state
  */
 function checkLogin() {
+  // Retrieve username from browser localStorage to restore login state
+// localStorage persists data across sessions (survives browser close)
+// Source: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
   const name = localStorage.getItem('flight_username'); // Try to retrieve saved username
   // localStorage.getItem() returns null if key doesn't exist
   
@@ -61,6 +71,9 @@ function checkLogin() {
  * Perfect time to set up event listeners and initialize functionality
  * CRITICAL: Ensures all HTML elements exist before JavaScript tries to access them
  */
+// Wait for DOM to be fully loaded before executing JavaScript
+// Ensures all HTML elements exist before accessing them
+// Source: https://developer.mozilla.org/en-US/docs/Web/API/Document/DOMContentLoaded_event
 document.addEventListener('DOMContentLoaded', function() {
   // This event fires when DOM is ready but before images/stylesheets finish loading
   // Prevents errors from trying to access elements that haven't loaded yet
@@ -77,7 +90,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // 'submit' event fires when:
       // - User clicks submit button
       // - User presses Enter key in form field
-      
+      // Prevent default form submission (which would reload page)
+      // Allows handling form data with JavaScript without page refresh
+      // Source: https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault
       e.preventDefault(); // Prevent default form submission (which would reload page)
       // Critical for single-page app behavior
       
@@ -86,6 +101,9 @@ document.addEventListener('DOMContentLoaded', function() {
       // .trim() removes leading/trailing spaces: "  John  " becomes "John"
       
       if (name) { // If name is not empty string
+        // Store username in browser localStorage for persistent login
+        // Data remains even after closing browser
+        // Source: https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
         localStorage.setItem('flight_username', name); // Save name to browser storage
         // localStorage.setItem(key, value) stores data that persists across sessions
         // Data remains even after closing browser
@@ -611,6 +629,9 @@ document.getElementById('flight-form').addEventListener('submit', function(e) {
     // Query parameters: ?key=value&key2=value2 (appended to URL)
     
     // MAKE HTTP GET REQUEST TO BACKEND API
+    // Make HTTP GET request to backend API using Fetch API
+    // fetch() returns Promise that resolves to Response object
+    // Source: https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     fetch(url)
       // fetch() returns Promise that resolves to Response object
       // Promise represents eventual completion (or failure) of async operation
